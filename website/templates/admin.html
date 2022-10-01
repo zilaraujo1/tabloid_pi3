@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}Administrativo{% endblock %}
+
+{% block content %}
+<main class="container" >
+<div class="preview">
+    
+    <h1>{{ user.nome_mercado }}</h1>
+    <di>
+    <button class="btn btn-primary preview" type="button" ><a href="/editar/{{ user.id }}">Edição de itens</a></button>
+    </div>
+    <div >
+    <button class="btn btn-success preview" type="button" ><a href="/form/{{ user.id }}">Cadastrar Itens</a></button>
+    </div>
+
+</main>
+{% endblock %}
