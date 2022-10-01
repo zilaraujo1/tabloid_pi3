@@ -24,18 +24,20 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), UPLOAD)
 
 views = Blueprint('views', __name__)
 
+
+#-------------- Rota da home --------------------------------
+
 @views.route('/', methods=['GET', 'POST'])
 #@login_required
 def home():
 
     return render_template("home.html", user=current_user)
 
+################# Rotas do crud (Criar, editar, deletar)###############################
+
 @views.route('/delete/<id>/', methods=['GET','POST'])
 def delete(id):
-    dados = Items.query.get(id)
-    db.session.delete(dados)
-    db.session.commit()
-    flash('Item deletado com sucesso', category='success')
+   
     return redirect(url_for('views.admin'))
      
 
@@ -53,84 +55,23 @@ def teste():
 @views.route('/form/<id>', methods=['GET','POST'])
 def form(id):
     mercado = Estabelecimentos.query.get(id)
-    if request.method == 'POST':
-        estabelecimento_id = request.form.get('estabelecimento_id')
-        tipo_item = request.form.get('tipo_item')
-        nome_item = request.form.get('nome_item')
-        marca = request.form.get('marca_item')
-        volume_tipo =request.form.get('volume_tipo')
-        volume = request.form.get('volume')
-        qtd_maxima = request.form.get('qtd_maxima')
-        valor = request.form.get('valor')
-        
-        file = request.files['foto']
-        namefoto = file.filename
-        
-        
-        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
-        file.save(savePath)
-
-        data_fim_promocao = request.form.get('data_fim_promocao')
-
-        # Criar as validações dos inputs aqui
-
-        new_item = Items( tipo_item=tipo_item, nome_item=nome_item, 
-        marca_item=marca, volume_tipo = volume_tipo,
-        volume= volume,  qtd_maxima=qtd_maxima, valor=valor,foto=namefoto,
-        data_fim_promocao=data_fim_promocao, estabelecimento_id=estabelecimento_id
-        )
-
-
-        db.session.add(new_item)
-        db.session.commit()
-        flash('Produto salvo com sucesso', category='success')
-        return redirect(url_for('views.admin'))
-    #else:
-        #flash('Erro ao salvar o produto', category='error')
+    
     return render_template('form.html', mercado=mercado, user=current_user)
 
-#Update de produtos
+##-----------Update de produtos -------------------------------------------------##
 @views.route('/update', methods=['GET','POST'])
 def update():
-    
-    if request.method == 'POST':
-        dados =Items.query.get(request.form.get('id'))
-        
-        
-        dados.nome_item = request.form['nome_item']
-        dados.marca_item = request.form['marca_item']
-        
-        dados.volume = request.form['volume']
-        dados.qtd_maxima = request.form['qtd_maxima']
-        dados.valor = request.form['valor']
-        dados.data_fim_promocao = request.form['data_fim_promocao']
-        
-        file = request.files['foto']
-        if (file)== "":
-            flash('Escolha uma foto', category='error')
-        else:
-            dados.foto = file.filename
-        
-        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
-        file.save(savePath)
 
-
-        # Criar as validações dos inputs aqui
-
-
-
-    
-        db.session.commit()
-        flash('Produto Editado com sucesso', category='success')
-        return redirect(url_for('views.admin'))
-    #else:
-        #flash('Erro ao salvar o produto', category='error')
     return render_template('form.html', mercado=mercado, user=current_user)
 
+@views.route("/editar/<id>/")
+def editar(id):
+    
+    return render_template('editar.html', user = current_user)
 
 
+##------------------API DO GOOGLE MAPS---------------------------------------------
 
-#Googlemaps
 class Comercio:
     def __init__(self, key, name, lat, lng):
         self.key  = key
@@ -179,13 +120,5 @@ def show_comercio(comercio_code):
     else:
         abort(404)
 
-@views.route("/editar/<id>/")
-def editar(id):
-    
-    dados = db.session.query(Items).filter(Items.estabelecimento_id==id)
-    
-    for result in dados:
-        mercado = result
 
-    return render_template('editar.html', mercado= dados, user = current_user)
 
