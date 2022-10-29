@@ -58,6 +58,12 @@ def form(id):
     
     return render_template('form.html', mercado=mercado, user=current_user)
 
+@views.route('/form_servico/<id>', methods=['GET','POST'])
+def form_servico(id):
+    mercado = Estabelecimentos.query.get(id)
+    
+    return render_template('form_servico.html', mercado=mercado, user=current_user)
+
 ##-----------Update de produtos -------------------------------------------------##
 @views.route('/update', methods=['GET','POST'])
 def update():
@@ -97,6 +103,18 @@ def  mercado ():
      dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
 
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
+
+##-----------RODA SERVIÇOS -------------------------------------------------##
+@views.route( '/servicos' )
+def  servicos ():
+  
+     return  render_template ( "servicos.html",  user = current_user )
+
+##-----------RODA SERVIÇOS -------------------------------------------------##
+@views.route( '/servico/<id>/' )
+def  servico (id):
+  
+     return  render_template ( "servicos.html",  user = current_user )
 
 
 ##------------------API DO GOOGLE MAPS---------------------------------------------
