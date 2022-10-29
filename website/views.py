@@ -58,6 +58,12 @@ def form(id):
     
     return render_template('form.html', mercado=mercado, user=current_user)
 
+@views.route('/form_servico/<id>', methods=['GET','POST'])
+def form_servico(id):
+    mercado = Estabelecimentos.query.get(id)
+    
+    return render_template('form_servico.html', mercado=mercado, user=current_user)
+
 ##-----------Update de produtos -------------------------------------------------##
 @views.route('/update', methods=['GET','POST'])
 def update():
@@ -68,6 +74,47 @@ def update():
 def editar(id):
     
     return render_template('editar.html', user = current_user)
+
+
+
+
+##-----------ROTA MERCADO -------------------------------------------------##
+@views.route('/mercadoa' ) #endpoints
+def mercadoa ():
+    
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
+
+    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
+    return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
+
+##-----------RODA MERCADO -------------------------------------------------##
+@views.route ( '/mercadob' )
+def  mercadob ():
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
+
+    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
+    return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
+
+##-----------RODA MERCADO -------------------------------------------------##
+@views.route( '/mercadoc' )
+def  mercado ():
+     mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
+
+     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
+
+     return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
+
+##-----------RODA SERVIÇOS -------------------------------------------------##
+@views.route( '/servicos' )
+def  servicos ():
+  
+     return  render_template ( "servicos.html",  user = current_user )
+
+##-----------RODA SERVIÇOS -------------------------------------------------##
+@views.route( '/servico/<id>/' )
+def  servico (id):
+  
+     return  render_template ( "servicos.html",  user = current_user )
 
 
 ##------------------API DO GOOGLE MAPS---------------------------------------------
@@ -86,30 +133,6 @@ comercios = (
     Comercio('mercadoC',     'Mercadinho C', -23.588869063417768, -46.40864850869)
 )
 comercios_by_key = {comercio.key: comercio for comercio in comercios}
-
-
-@views.route('/mercadoa' ) #endpoints
-def mercadoa ():
-    
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
-
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
-    return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
-
-@views.route ( '/mercadob' )
-def  mercadob ():
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
-
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
-    return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
-
-@views.route( '/mercadoc' )
-def  mercado ():
-     mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
-
-     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
-
-     return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 
 #GoogleMaps
 @views.route("/<comercio_code>")

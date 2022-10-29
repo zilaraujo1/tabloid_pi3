@@ -19,12 +19,14 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+        
 
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
                  flash('Logado com sucesso', category='success')
                  login_user(user, remember=True)
+                 
                  return redirect(url_for('views.admin', user=current_user))
             else:
                 flash('Incorreto password, tente novamente!', category='error')
