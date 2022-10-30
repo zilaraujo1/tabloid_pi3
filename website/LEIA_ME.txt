@@ -29,5 +29,5 @@
 com relação ao blivet-gui 
 
  pip freeze > requirements.txt
-
+kkkkkkkkkkkkkkkkklk
   heroku logs --tail
