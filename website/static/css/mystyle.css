@@ -57,15 +57,10 @@ body{
  /* texto preço ideal */
 .preço-ideal{
     
-    background-color:rgb(233, 21, 21);
-    text-align:center;
-    color: aliceblue;
-    font-family: 'sans-serif';
-    height: 70px;
+    background-color:rgb(233, 17, 28);
+    height: 20px;
 }
-.preço-ideal h2{
-    padding-top: 20px;
-}
+
 
       
 
