@@ -79,13 +79,12 @@ def editar(id):
 
 
 ##-----------ROTA MERCADO -------------------------------------------------##
-@views.route('/mercadoa' ) #endpoints
-def mercadoa ():
-    
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
+@views.route('/ateliedehlicias' ) #endpoints
+def ateliedehlicias ():
+    comercios = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
 
     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
-    return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
+    return render_template("ateliedehlicias.html", comercios=comercios , ofertas=dados_items, comercios=comercios, user=current_user)
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route ( '/mercadob' )
@@ -128,7 +127,7 @@ class Comercio:
 
 # AS coordenadas do endereço
 comercios = (
-    Comercio('mercadoA',      'Mercadinho A',  -23.571319422733524, -46.414629246163614),
+    Comercio('ateliedehlicias',      'ateliedehlicias',  -23.571319422733524, -46.414629246163614),
     Comercio('mercadoB', 'Mercadinho B',           -23.591198056010676, -46.403604962487194),
     Comercio('mercadoC',     'Mercadinho C', -23.588869063417768, -46.40864850869)
 )
