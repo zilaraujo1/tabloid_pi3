@@ -33,7 +33,7 @@ def create_app():
     app.register_blueprint(api, url_prefix='/' )
     
 
-    from .models import User, Note, Items
+    from .models import User, Items
     create_database(app)
 
     login_manager = LoginManager()

@@ -95,7 +95,7 @@ def  mercadob ():
     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
     return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
 
-##-----------RODA MERCADO -------------------------------------------------##
+##-----------ROTA MERCADO -------------------------------------------------##
 @views.route( '/mercadoc' )
 def  mercado ():
      mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
@@ -104,13 +104,13 @@ def  mercado ():
 
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 
-##-----------RODA SERVIÇOS -------------------------------------------------##
+##-----------ROTA SERVIÇOS -------------------------------------------------##
 @views.route( '/servicos' )
 def  servicos ():
   
      return  render_template ( "servicos.html",  user = current_user )
 
-##-----------RODA SERVIÇOS -------------------------------------------------##
+##-----------ROTA SERVIÇOS -------------------------------------------------##
 @views.route( '/servico/<id>/' )
 def  servico (id):
   

@@ -4,10 +4,6 @@ from flask_login import UserMixin
 
 from sqlalchemy.sql import func
 
-class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
     
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,20 +19,9 @@ class Estabelecimentos(db.Model, UserMixin):
     nome = db.Column(db.String(150))
     items = db.relationship('Items')
 
-class Endereco(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    id_Estabelecimento = db.Column(db.Integer, primary_key=True)
-    estado = db.Column(db.String(150))
-    cidade = db.Column(db.String(150))
-    endereco = db.Column(db.String(150))
-    numero = db.Column(db.String(150))
 
-class contato(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    id_Estabelecimento = db.Column(db.Integer, primary_key=True)
-    ddd = db.Column(db.String(150))
-    telefone = db.Column(db.String(150))
-    email = db.Column(db.String(150))
+
+
 
 class Items(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
