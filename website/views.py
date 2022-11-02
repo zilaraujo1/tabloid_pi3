@@ -60,15 +60,15 @@ def form(id):
 
 @views.route('/form_servico/<id>', methods=['GET','POST'])
 def form_servico(id):
-    mercado = Estabelecimentos.query.get(id)
+    serviço = Estabelecimentos.query.get(id)
     
-    return render_template('form_servico.html', mercado=mercado, user=current_user)
+    return render_template('form_servico.html', user=current_user)
 
 ##-----------Update de produtos -------------------------------------------------##
 @views.route('/update', methods=['GET','POST'])
 def update():
 
-    return render_template('form.html', mercado=mercado, user=current_user)
+    return render_template('form.html', user=current_user)
 
 @views.route("/editar/<id>/")
 def editar(id):
@@ -97,7 +97,7 @@ def  emporioct ():
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route( '/mercadoc' )
-def  mercado ():
+def  mercadoc ():
      mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
 
      dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
@@ -105,10 +105,10 @@ def  mercado ():
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 
 ##-----------RODA SERVIÇOS -------------------------------------------------##
-@views.route( '/servicos' )
-def  servicos ():
+@views.route( '/esmalterialily' )
+def  esmalterialily ():
   
-     return  render_template ( "servicos.html",  user = current_user )
+     return  render_template ( "esmalterialily.html",  user = current_user )
 
 ##-----------RODA SERVIÇOS -------------------------------------------------##
 @views.route( '/servico/<id>/' )
