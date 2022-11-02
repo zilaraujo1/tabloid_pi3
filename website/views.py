@@ -78,21 +78,22 @@ def editar(id):
 
 
 
-##-----------ROTA MERCADO -------------------------------------------------##
+##-----------ROTA COMERCIO -------------------------------------------------##
 @views.route('/ateliedehlicias' ) #endpoints
 def ateliedehlicias ():
-    comercios = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
+    
+    #comercios = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
-    return render_template("ateliedehlicias.html", comercios=comercios , ofertas=dados_items, comercios=comercios, user=current_user)
+    #dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
+    return render_template("ateliedehlicias.html",user=current_user)
 
-##-----------RODA MERCADO -------------------------------------------------##
-@views.route ( '/mercadob' )
-def  mercadob ():
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
+##-----------ROTA COMERCIO -------------------------------------------------##
+@views.route ( '/emporioct' )
+def  emporioct ():
+    #mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
-    return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
+    #dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
+    return  render_template ( "emporioct.html",user = current_user  )
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route( '/mercadoc' )
