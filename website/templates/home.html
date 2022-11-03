@@ -15,7 +15,7 @@
 </head>
 
 <body class="home">
-    <div class="preço-ideal">              
+    <div class="faixa">              
     </div>  
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,17 +49,24 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Serviços
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="/esmalterialily">Esmalteria </a>
-                     
-                    </div>
-                    </div>
+                      <a class="dropdown-item" href="/stylushair">Stylus Hair" </a>                     
+                </div>
+                </div>
             
             {% else %}
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         
             <a class="nav-item nav-link" id="home" href="/">Home</a>
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <a class="nav-item nav-link" id="signUp" href="/cadastro">Cadastra-se</a>
-            <a class="nav-item nav-link" id="signUp" href="/servicos">Serviços</a>
+            <a class="nav-item nav-link" id="signUp" href="/comercio">Comércios</a>
+            <a class="nav-item nav-link" id="signUp" href="/serviço">Serviços</a>
+        </button>
+            </div>
+                                 
        
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -78,9 +85,10 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="/esmalterialily">Esmalteria Lily</a>
-                      
-                    </div>
-                    </div>                          
+                      <a class="dropdown-item" href="/stylushair">Stylus Hair</a>                  
+                </div>
+                </div>  
+
             {% endif %}
         </div>
     </div>
@@ -111,12 +119,13 @@
  {% endwith %}
 
      
- <main>   
-    
-        <div class="logoIcon">
-            <img class="logo"src="{{ url_for('static', filename='image/logo.png')}}" class="figure-img img-fluid rounded" alt="logo do site com o nome promoção ideal">
+ <main>       
+        <div class="logoecommerce">
+            <img class="logo"src="{{ url_for('static', filename='image/tabloide03.png')}}" class="figure-img img-fluid rounded" alt="tabloide 03">
         </div>
     
+
+
         <div class="rodape"> 
             <div class="rede-social ">
                 <ul>
@@ -137,8 +146,7 @@
             </div>
             <div class="rede-social">  
                 <ul>  
-                    <h6>Siga o tabloide</h6>
-                    
+                    <h6>Siga o tabloide</h6>                    
                     <img class="facebook-base"src="{{ url_for('static', filename='image/facebook.png')}}" class="figure-img img-fluid rounded  figure-acessibilidade" alt="ìcone do facebbok" >
                     <img class="whats-base" src="{{ url_for('static', filename='image/whats.png')}}" class="figure-img img-fluid rounded  figure-acessibilidade" alt="ìcone do whatssap" >
                     

@@ -1,7 +1,7 @@
 
 *{
     margin:0%;
-    padding: 0%;
+    padding:0%;
     
 }
 body,html{
@@ -10,111 +10,32 @@ body,html{
     
 }
 main{
-    height: 100vh;
+    height:100vh;
     width: 100vw;
     position: relative;
-    
-    
+        
 }
 
- /* Logo do site */
-.logo{
-     
-    position: absolute;  
-    width: 10%;
-    height:10%;
-    margin-top: 0px;
-   
-   
-}
- 
-.logoIcon{
+.logoecommerce{
    margin-right: auto;
    margin-left: 20%;
    height:75%;
-   width: 50%;
-   
+   width: 50%;   
+   padding:10%;
     
-}
-
-.preview {
-     margin-top: 50px;
-     
- }
-.preview a{
-    color: aliceblue;
 }
   
-.preço-ideal{
-    
+.faixa{
     background-color:rgb(233, 17, 28);
-    height: 20px;
+    height: 20px;  
+    
 }
    
- 
-.text-figure{
-    
-    height: 5rem;
-    padding: 5px;
-    padding-bottom: 35px;
-    
-    
-}
 
-/* card dos produtos */
-.card{
-    display: inline-block;
-    align-items: justify;
-    width: 13rem;
-    height: 25rem;
-    border-bottom: 2px solid #333;
-    
-    border-bottom: 2px solid rgb#333;
-    padding: 5px;
-    margin: 5px;
-}
 
-.card-text{
-    
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    line-height: 22px;
 
-}
 
-/*  Bloco de Informações dos Mercados */
-.contato-card{
-    width: auto;
-    margin-top: 30px;
-    background: #ffde59;
-    height: auto;
-    display: flex;
-    
-}
-.endereco{
-    margin-top: 30px;
-    display:inline-block;
-    
-    align-items:flex-start;
-}
-.contato {
-    margin-left: 10px;
-    color: #4d4d4c;
-}
-.validade{
-    font-size: small;
-}
-.card h3{
-    font-family: 'Fredoka One', cursive;
-    font-weight: 1000;
-    color: crimson;
-    font-size:40px;
-}
-.card-img-top{
-    width: 12rem;
-    height: 150px;
-    
-}
+
 
 /* Icones- redes sociais */
 ul li{
@@ -152,21 +73,6 @@ ul li{
 
 }
 
-
-form h3{
-    text-align: center;
-    margin-top: 20px;
-}
-
-.form-control {
-    width: 300px;
-       
-}
-form{
-    align-items: center;
-    margin-bottom: 200px;
-}
- /* Rodapé */
 .rodape{
     background-color:#333;
     height:auto;

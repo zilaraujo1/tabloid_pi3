@@ -111,10 +111,10 @@ def  esmalterialily ():
      return  render_template ( "esmalterialily.html",  user = current_user )
 
 ##-----------RODA SERVIÇOS -------------------------------------------------##
-@views.route( '/servico/<id>/' )
-def  servico (id):
+@views.route( '/stylushair' )
+def  stylushair ():
   
-     return  render_template ( "servicos.html",  user = current_user )
+     return  render_template ( "stylushair.html",  user = current_user )
 
 
 ##------------------API DO GOOGLE MAPS---------------------------------------------
