@@ -31,11 +31,16 @@ main{
     
 }
    
-
-
-
-
-
+/* atelie*/
+.atelie {
+    margin-right: auto;
+    height:70%;
+    width: 70%;   
+    padding:0%;
+    
+    
+}  
+    
 
 /* Icones- redes sociais */
 ul li{
@@ -75,12 +80,12 @@ ul li{
 
 .rodape{
     background-color:#333;
-    height:auto;
-    margin-top: 20px;
-    padding-top: 20px;
-    position: absolute;
-    width: 100%;
+    margin: 300px;
+    padding:0%;
+    
+    
 }
+    
 .rede-social{
     display:inline-flex;
     text-align:left;

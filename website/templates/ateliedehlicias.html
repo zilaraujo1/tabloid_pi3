@@ -2,13 +2,11 @@
 
 {% block content %}
 <div class="container" >
-
-        <img class="imageteste" src="{{ url_for('static', filename='image/Atelie Dehlicias.png')}}" alt="Atelie Dehlicias">
-
+        
     <div class="row" >
         <div class="col-md-10 col-sm-4">
-            
-                {% for oferta in ofertas %}
+
+               {% for oferta in ofertas %}
            
                 <div class="card" >
                         <img class="card-img-top" src="static/uploads/{{ oferta.foto }}" alt="foto do produto">
@@ -24,49 +22,12 @@
                 {% endfor %}
         </div>
 
+<!--Imagens e texto-->
 
-    <!-- Barra contatos e googlemaps-->
-    <div class="card  contato-card">
-        <div class="card-body contato-body">
-       
-        
-          <div class="endereco">
-            
-            <ul >
-                <li><img src="{{ url_for('static', filename='image/whats.png')}}" alt="ícone do whatssap"><strong>(11)92222-4444</strong></li>
-                <li><a href="#"><img src="{{ url_for('static', filename='image/facebook.png')}}" alt="ícone do facebbok"></a></li>
-                <li><a href="#"><img src="{{ url_for('static', filename='image/instagram.png')}}" alt="ícone do instagram"></a></li>
-            
-            </ul>
-          </div>
-          <div class="endereco">
-              <ul>
-                  <li>Av Souza Ramos</li>
-                  <li>Rua Dos Texteis</li>
-                  <li>Av Dos Metalúrgicos</li>
-              </ul>
-          </div>
-          <div class="endereco">
-         
-            <ul >
-                {% for comercio in comercios %}
-                <li><a class="btn btn-primary btn-sm" href="{{comercio.key}}">{{comercio.name}}</a></li>
-                {% endfor %}
-            </ul>
-          </div>
-          <div class="endereco">
-            <img class="maps-img" src="{{ url_for('static', filename='image/googlemaps.png')}}" alt="ícone do whatssap">
-          </div>
-          
-        </div>
-  
-    </div>
-
-
-
-    <!-- Barra contatos e googlemaps-->
-
-    </div>  
-  
+<div class="atelie">
+    <img class="atelie" src="{{ url_for('static', filename='image/Atelie Dehlicias.png')}}" alt="Atelie Dehlicias">
 </div>
+    
+     
+
 {% endblock %}
