@@ -35,7 +35,7 @@ def create_app():
     
     
 
-    from .models import User, Items
+    from .models import User, Comercios_items, Estabelecimentos, Servicos, Segmentos
     create_database(app)
 
     login_manager = LoginManager()

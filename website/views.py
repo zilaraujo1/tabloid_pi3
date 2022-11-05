@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 
 #from models.tables import Estabelecimento 
 #from .models import User
-from .models import Items
+from .models import Comercios_items
 from .models import Estabelecimentos
 
 
