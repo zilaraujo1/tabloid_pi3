@@ -33,32 +33,46 @@ main{
    
 /* atelie*/
 .atelie {
-   
-   margin-right: 20%;
-   margin-top:1%;
    height:75%;
-   width: 60%;  
-   position: absolute;
+   width: 65%;  
+   padding: 1%;
+   margin-left: 180px;
+   text-align: center;
+   text-align: left;
+   font-weight: bold;
+   font-size: 12px
+  
 }
 
-.conteudo-principal{
-    width: 46%;
-    mask-position: 0%;
-    padding: 0%;
+
+.casamento{
+    height:75%;
+    width: 65%; 
+    margin:5px;
+    margin-left:210px;
     text-align: left;
+    font-family:'Lucida Sans';
+    
 }
 
-h5{
-    margin-right: 20%;
+.aniversario{
+    height:75%;
+    width: 65%; 
+    margin-left:100px;
+    padding: 1px;
+    
+
+    
 }
 
-
-
-
-
-   
+.time{
+    height:85%;
+    width: 5%; 
+    margin-left:100px;
+    padding: 1px;
     
-    
+}
+      
 
     
 
