@@ -8,12 +8,12 @@ from sqlalchemy.sql import func
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150))
-    nome_mercado = db.Column(db.String(150))
+    nome_empresa = db.Column(db.String(150))
     password = db.Column(db.String(150))
     password = db.Column(db.String(150))
     data = db.Column(db.String(10000))
     estabelecimento = db.relationship('Estabelecimentos')
-    comercios_item = db.relationship('Comercios_item')
+    comercios_item = db.relationship('Comercios_items')
     servicos = db.relationship('Servicos')
     date = db.Column(db.DateTime(timezone=True), default=func.now())
 

@@ -3,9 +3,10 @@ from flask import Blueprint, render_template, request, redirect, flash, jsonify,
 from flask_login import login_required, current_user
 
 #from models.tables import Estabelecimento 
-#from .models import User
+from .models import User
 from .models import Comercios_items
 from .models import Estabelecimentos
+from .models import Servicos
 
 
 from . import db
@@ -45,8 +46,8 @@ def delete(id):
 @views.route('/admin')
 @login_required
 def admin():
-     
-    return render_template("admin.html", user=current_user)
+    dono = User.query.get(id)
+    return render_template("admin.html", dono=dono, user=current_user)
 
 @views.route('/cadastro')
 def teste():
@@ -54,15 +55,79 @@ def teste():
 
 @views.route('/form/<id>', methods=['GET','POST'])
 def form(id):
-    mercado = Estabelecimentos.query.get(id)
+    dono = User.query.get(id)
     
-    return render_template('form.html', mercado=mercado, user=current_user)
 
+    if request.method == 'POST':
+        user_fk = request.form.get('user_fk')
+        tipo = request.form.get('tipo')
+        nome = request.form.get('nome')
+        marca = request.form.get('marca')
+        volume =request.form.get('volume')
+        peso = request.form.get('peso')
+        valor = request.form.get('valor')
+        
+        file = request.files['foto']
+        namefoto = file.filename
+        
+        
+        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        file.save(savePath)
+
+        fim_promo = request.form.get('fim_promo')
+
+        # Criar as validações dos inputs aqui
+
+        new_item = Comercios_items( tipo=tipo, nome=nome, 
+        marca=marca, volume = volume,
+        peso= peso, valor=valor,foto=namefoto,
+        fim_promo=fim_promo, user_fk=user_fk
+        )
+
+
+        db.session.add(new_item)
+        db.session.commit()
+        flash('Produto salvo com sucesso', category='success')
+        return redirect(url_for('views.admin'))
+    
+    return render_template('form.html', dono=dono, user=current_user)
+
+##-----------Formulário de serviços -------------------------------------------------##
 @views.route('/form_servico/<id>', methods=['GET','POST'])
 def form_servico(id):
-    mercado = Estabelecimentos.query.get(id)
+    dono = User.query.get(id)
     
-    return render_template('form_servico.html', mercado=mercado, user=current_user)
+
+    if request.method == 'POST':
+        user_fk = request.form.get('user_fk')
+        tipo = request.form.get('tipo')
+        descricao = request.form.get('descricao')
+        valor = request.form.get('valor')
+        horario_func =request.form.get('horario_func')
+       
+        
+        file = request.files['foto']
+        namefoto = file.filename
+        
+        
+        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        file.save(savePath)
+
+
+        # Criar as validações dos inputs aqui
+
+        new_item = Servicos( tipo=tipo, descricao=descricao, 
+        valor=valor,horario_func=horario_func, foto=namefoto,
+         user_fk=user_fk
+        )
+
+
+        db.session.add(new_item)
+        db.session.commit()
+        flash('Produto salvo com sucesso', category='success')
+        return redirect(url_for('views.admin'))
+    
+    return render_template('form_servico.html', dono=dono, user=current_user)
 
 ##-----------Update de produtos -------------------------------------------------##
 @views.route('/update', methods=['GET','POST'])
