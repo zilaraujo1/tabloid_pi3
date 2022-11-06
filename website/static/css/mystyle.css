@@ -33,13 +33,19 @@ main{
    
 /* atelie*/
 .atelie {
-    margin-right: auto;
-    height:70%;
-    width: 70%;   
-    padding:0%;
+   
+   margin-right: 20%;
+   margin-top:1%;
+   height:65%;
+   width: 50%;  
+   position: absolute;
+   
+}
+
+   
     
     
-}  
+
     
 
 /* Icones- redes sociais */
