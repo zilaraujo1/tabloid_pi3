@@ -14,7 +14,6 @@ nav{
 body,html{
     height:100vh ;
     width:100vw;
-    
 }
 main{
     height:100vh;
@@ -84,8 +83,17 @@ main{
     padding: 1px;
 }
     
-      
-
+  /* Lily*/
+.esmalterialily {
+    height:25%;
+    width: 60%;  
+    padding: 1%;
+    margin-left: 170px;
+    text-align: center;
+    text-align: left;
+    font-weight: bold;
+    font-size: 12px    
+}
     
 
 /* Icones- redes sociais */
