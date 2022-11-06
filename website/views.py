@@ -46,8 +46,8 @@ def delete(id):
 @views.route('/admin')
 @login_required
 def admin():
-    dono = User.query.get(id)
-    return render_template("admin.html", dono=dono, user=current_user)
+    
+    return render_template("admin.html", user=current_user)
 
 @views.route('/cadastro')
 def teste():

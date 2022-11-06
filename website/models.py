@@ -20,11 +20,13 @@ class User(db.Model, UserMixin):
 class Estabelecimentos(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150))
-    segmento_fk = db.Column(db.Integer, db.ForeignKey('segmentos.id'))
-    tipo = db.Column(db.String(150))
+    segmento_fk = db.Column(db.Integer, db.ForeignKey('segmentos.id')) 
     endereco = db.Column(db.String(150))
+    telefone = db.Column(db.String)
     descricao = db.Column(db.Text)
+    foto = db.Column(db.Text)
     user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
+
    # items = db.relationship('Items')
 
 
