@@ -34,9 +34,9 @@ main{
 /* atelie*/
 .atelie {
    height:75%;
-   width: 65%;  
+   width: 60%;  
    padding: 1%;
-   margin-left: 180px;
+   margin-left: 170px;
    text-align: center;
    text-align: left;
    font-weight: bold;
@@ -46,32 +46,30 @@ main{
 
 
 .casamento{
-    height:75%;
-    width: 65%; 
-    margin:5px;
-    margin-left:210px;
-    text-align: left;
+    height:80%;
+    width: 50%; 
+    margin:3px;
+    margin-right:200px;
+    text-align: right;
     font-family:'Lucida Sans';
-    
+   
 }
 
 .aniversario{
-    height:75%;
-    width: 65%; 
-    margin-left:100px;
+    height:80%;
+    width: 75%; 
+    margin-left:210px;
     padding: 1px;
-    
-
-    
+     
 }
 
 .time{
-    height:85%;
-    width: 5%; 
-    margin-left:100px;
+    height:80%;
+    width: 79%; 
+    margin-right:200px;
     padding: 1px;
-    
 }
+    
       
 
     
