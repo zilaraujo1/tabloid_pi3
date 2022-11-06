@@ -36,11 +36,25 @@ main{
    
    margin-right: 20%;
    margin-top:1%;
-   height:65%;
-   width: 50%;  
+   height:75%;
+   width: 60%;  
    position: absolute;
-   
 }
+
+.conteudo-principal{
+    width: 46%;
+    mask-position: 0%;
+    padding: 0%;
+    text-align: left;
+}
+
+h5{
+    margin-right: 20%;
+}
+
+
+
+
 
    
     
