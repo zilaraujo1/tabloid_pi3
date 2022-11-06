@@ -24,12 +24,18 @@ main{
    padding:10%;
     
 }
-  
-.faixa{
-    background-color:rgb(233, 17, 28);
-    height: 20px;  
-    
+
+/*carrossel*/
+
+.carousel-inner{
+ 
+   margin-left: 10%;
+   height:80%;
+   width: 75%;   
+   padding:3%;
 }
+
+  
    
 /* atelie*/
 .atelie {
@@ -195,18 +201,14 @@ h2{
     border: 3px solid darkgrey;
 }
 
-.h3login{
-    display: block;
-    text-align:center;
-    
-}
+
 .jumbotron{
     height: 500px;
 }
 button{
     margin: 3px;
 }
-@media (max-width:600px) {
+@media (max-width:100px) {
 
   
     
