@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css')}}">
     
     <title>{% block title %}Home{% endblock %}</title>
+    
 </head>
-
     
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar grey">
     <button 
     class="navbar-toggler" 
     type="button" 
@@ -56,7 +56,7 @@
             
             {% else %}
             <div class="dropdown">            
-            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            <a class="nav-item nav-link" id="home" href="/">Home</a> 
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <a class="nav-item nav-link" id="signUp" href="/cadastro">Cadastra-se</a>
             
@@ -82,6 +82,7 @@
                       <a class="dropdown-item" href="/stylushair">Stylus Hair</a>  
                                       
                 </div>
+                
                 </div>  
 
             {% endif %}
@@ -122,13 +123,13 @@
                 <img src="{{ url_for('static', filename='image/tabloide03.png')}}" class="d-block w-100" alt="tabloide03.png">
               </div>
               <div class="carousel-item">
-                <img src="{{ url_for('static', filename='image/Esmalteria Lily.png')}}" class="d-block w-100" alt="Esmalteria Lily.png">
+                <img src="{{ url_for('static', filename='image/tabloide 02.png')}}" class="d-block w-100" alt="tabloide 02.png">
               </div>
               <div class="carousel-item">
-                <img src="{{ url_for('static', filename='image/Emporio CT.png')}}" class="d-block w-100" alt="Emporio CT.png">
+                <img src="{{ url_for('static', filename='image/Lily.png')}}" class="d-block w-100" alt=".Lilypng">
               </div>
               <div class="carousel-item">
-                <img src="{{ url_for('static', filename='image/logo delicias.png')}}" class="d-block w-100" alt="logo delicias.png">
+                <img src="{{ url_for('static', filename='image/delicias.png')}}" class="d-block w-100" alt="delicias.png">
               </div>
               <div class="carousel-item">
                 <img src="{{ url_for('static', filename='image/Stylus Hair.png')}}" class="d-block w-100" alt="Stylus Hair.png">
@@ -143,6 +144,9 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          
+
+        
     
 
 
