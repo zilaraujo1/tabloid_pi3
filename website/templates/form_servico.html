@@ -10,8 +10,8 @@
     <div class="form-row">
         <div class="form-group">
             <div class="col-md-6 ">
-                <label for="mercado"><h3> {{ mercado.nome }}</h3></label>
-            <input type="hidden" id="estabelecimento_id" name="estabelecimento_id" value="{{ mercado.id }}">
+                <label for="mercado">Empresa:<h3>{{ dono.nome_empresa }}</h3></label>
+            <input type="hidden" id="user_fk" name="user_fk" value="{{ dono.id }}">
             
             </div>
         </div>
@@ -20,7 +20,7 @@
         <div class="form-group">
             <div class="col-md-6 ">
                 <label for="tipo_item">Tipo de Serviço:</label>
-                <select class="form-select" name="servico" id="servico" aria-label="Default select example">
+                <select class="form-select" name="tipo" id="tipo" aria-label="Default select example">
                     <option value="">Selecione o serviço</option>
                     <option value="Corte de cabelo">Corte de cabelo</option>
                     <option value="Manicure-Esmalterias">Manicure-Esmalterias</option>
@@ -34,38 +34,30 @@
 
                 </select>
             </div>
-    </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6 ">
+                <label for="descricao">Apresentação:</label>
+                <textarea type="descricao" class="form-control" id="descricao" name="descricao">Descrevição breve do serviço</textarea>
+            </div>
+        </div>
     <div class="form-group">
         <div class="col-md-6 ">
-      <label for="nome_item">Endereço:</label>
-      <input type="nome_item" class="form-control" id="endereco" name="endereco" placeholder="Digite o endereço do serviço">
+      <label for="valor">Preço do Serviço:</label>
+      <input type="text" class="form-control" id="valor" name="valor" placeholder="Digite o valor do serviço">
         </div>
     </div>
 
 
-    <div class="form-group">
-        <div class="col-md-6 ">
-            <label for="marca_item">Apresentação:</label>
-            <textarea type="marca_item" class="form-control" id="descricao" name="descricao">Descreva o negócio</textarea>
-        </div>
-    </div>
 
     <div class="form-group">
         <div class="col-md-6 ">
-            <label for="volume_tipo">Telefone:</label>
-            <input type="volume_tipo" class="form-control" id="telefone" name="telefone" placeholder="Digite um telefone para contato">
+            <label for="horario">Horário de atendimento:</label>
+            <input type="text" class="form-control" id="horario_func" name="horario_func" placeholder="Digite o horário de atendimento">
 
         </div>
     </div>
 
-
-    <div class="form-group">
-        <div class="col-md-6 ">
-            <label for="valor">Valor:</label>
-            <input type="valor" class="form-control" id="valor" name="valor" placeholder="Digite o valor do serviço">
-
-        </div>
-    </div>
 
     <div class="form-group">
         <div class="col-md-6 ">
@@ -73,14 +65,8 @@
             <label for="data-final-promo">Arquivo:</label>
             <input id="foto" type="file" class="form-control"  name="foto">
         </div>
-        </div>
-
-    <div class="form-group">
-        <div class="col-md-6 ">
-            <label for="data_fim_promocao">Horáio de funcionamento:</label>
-            <input id="data_fim_promocao" type="data_fim_promocao" class="form-control" name="data_fim_promocao">
-        </div>
     </div>
+
 </div>
 
     <div id="cadastrar">
