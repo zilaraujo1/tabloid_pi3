@@ -12,10 +12,11 @@ api = Blueprint('produtos', __name__)
 def produtos():
     try:
         cursor = mydb.cursor()
-        sql = "SELECT * FROM comercios_item"
+        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, I.data, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk"
         cursor.execute(sql)
         item = cursor.fetchall()
-
+       
+        print(item)
         itemList = list()
         for items in item:
             itemList.append(
@@ -28,7 +29,10 @@ def produtos():
                     "peso": items[5],
                     "valor": items[6],
                     "fim da promoção": items[7],
-                    "dono": items[9]
+                    "foto": items[8],
+                    "data":items[9],
+                    "Comércio": items[10]
+                    
 
                 }
             )
@@ -77,12 +81,12 @@ def obter_item_por_id(id):
     try:
         cursor = mydb.cursor()
 
-        sql = "SELECT * FROM comercios_item WHERE item_id = '{0}' ".format(id)
+        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk WHERE item_id = '{0}' ".format(id)
         cursor.execute(sql)
     
         item = cursor.fetchone()
         
-        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'dono': item[9]}
+        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'foto': item[8], 'comércio': item[9]}
         return jsonify(dados)
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
