@@ -16,7 +16,7 @@ def produtos():
         cursor.execute(sql)
         item = cursor.fetchall()
        
-        print(item)
+        #Debug print(item)
         itemList = list()
         for items in item:
             itemList.append(
@@ -46,36 +46,7 @@ def produtos():
    
     
 #-------------------------------GET ITEMS ID--------------------------------------------------
-@api.route('/api/produtos/<id>/')
-def getUsuario():
-    try:
-        cursor = mydb.cursor()
-        sql = "SELECT * FROM usuario"
-        cursor.execute(sql)
 
-        users = cursor.fetchall()
-        userList = list()
-        for usuario in users:
-            userList.append(
-                {
-                'id': usuario[0],
-                'nome': usuario[1],
-                'cpf': usuario[2],
-                'email': usuario[3],
-                'telefone': usuario[4]
-
-
-                }
-            )
-        return jsonify(
-            mensagem = 'Lista de Usuários',
-            dados= userList
-        )
-    except Exception as ex:
-        return jsonify({'menssagem': "ERRO: dados não existe!"})
-
-
-#---------------------------USUARIOS ID--------------------------------------------------------
 @api.route('/api/produtos/<int:id>', methods=['GET'])
 def obter_item_por_id(id):
     try:
