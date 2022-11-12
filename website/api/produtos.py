@@ -72,7 +72,8 @@ def incluir_item():
         item = request.json
        # print(item)
         cursor = mydb.cursor()
-        sql ="""INSERT INTO comercios_item (item_id, tipo,nome, marca, quantidade, peso, valor, fim_promo, foto, data, estab_fk) VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item_id'],item['tipo'],item['nome'], item['marca'], item['quantidade'], item['peso'], item['valor'],item['fim promo'], item['foto'], item['data'], item['estab_fk'])
+        sql ="""INSERT INTO comercios_item (item_id, tipo,nome, marca, quantidade, peso, valor, fim_promo, foto, data, estab_fk) 
+        VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item'],item['tipo'],item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'],item['fim promo'], item['foto'], item['data'], item['comercio'])
         
         cursor.execute(sql)
     
@@ -101,13 +102,16 @@ def deletar_usuario(id):
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
 #------------------------UPATE-----------------------------------------------------
-@prod.route('/api/produtos/<id>', methods=['PUT'])
-def atualizar_usuario(id):
+@prod.route('/api/produtos/<int:id>', methods=['PUT'])
+def atualizar_produto(id):
     try:
-        user = request.json
+        item = request.json
+        print(item)
         cursor = mydb.cursor()
 
-        sql = """UPDATE  usuario SET nome='{0}', cpf='{1}', email='{2}', telefone='{3}' WHERE id = {4} """.format(user['nome'], user['cpf'], user['email'], user['telefone'], id)
+        sql = """UPDATE  comercios_item SET tipo='{0}', nome='{1}', marca ='{2}', quantidade ='{3}', peso ='{4}', valor = '{5}', fim_promo = '{6}', foto = '{7}', data = '{8}', estab_fk = {9} 
+        WHERE item_id ={10}""".format(item['tipo'], item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'], item['fim promo'], item['foto'], item['comercio'], id)
+        
         cursor.execute(sql)
     
         mydb.commit()
