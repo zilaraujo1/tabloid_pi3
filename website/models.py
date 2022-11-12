@@ -12,38 +12,37 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     password = db.Column(db.String(150))
     data = db.Column(db.String(10000))
-    estabelecimento = db.relationship('Estabelecimentos')
-    comercios_item = db.relationship('Comercios_items')
-    servicos = db.relationship('Servicos')
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estabelecimento = db.relationship('Estabelecimentos')
 
 class Estabelecimentos(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150))
-    segmento_fk = db.Column(db.Integer, db.ForeignKey('segmentos.id')) 
     endereco = db.Column(db.String(150))
     telefone = db.Column(db.String)
+    hora_func = db.Column(db.String)
     descricao = db.Column(db.Text)
     foto = db.Column(db.Text)
     user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
-
-   # items = db.relationship('Items')
-
-
+    servicos = db.relationship('Comercios_item')
+    comercios_item = db.relationship('Servicos')
 
 
 
-class Comercios_items(db.Model, UserMixin):
+
+
+class Comercios_item(db.Model, UserMixin):
     item_id = db.Column(db.Integer, primary_key=True)
     tipo = db.Column(db.String(150))
     nome = db.Column(db.String(150))
     marca = db.Column(db.String(150))
-    volume = db.Column(db.String(150))
+    quantidade = db.Column(db.String(150))
     peso = db.Column(db.String(150))
     valor = db.Column(db.String(10))
     fim_promo = db.Column(db.String(150))
     foto = db.Column(db.Text, nullable =False)
-    user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
+    data = db.Column(db.String(20))
+    estab_fk = db.Column(db.Integer, db.ForeignKey("estabelecimento.id"))
     
 
 
@@ -54,9 +53,6 @@ class Servicos(db.Model, UserMixin):
     valor = db.Column(db.String(150))
     horario_func = db.Column(db.String(150))
     foto = db.Column(db.Text)
-    user_fk = db.Column(db.Integer, db.ForeignKey('user.id'))
+    data = db.Column(db.String(20))
+    estab_fk = db.Column(db.Integer, db.ForeignKey('estabeleciemnto.id'))
 
-class Segmentos(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(10))
-    Estabelecimentos = db.relationship('Estabelecimentos')

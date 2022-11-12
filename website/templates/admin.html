@@ -2,19 +2,101 @@
 
 {% block content %}
 <main class="container" >
-<div class="preview">
-    
-    
-    <h1>{{ user.nome_mercado }}</h1>
-    <di>
-    <button class="btn btn-primary preview" type="button" ><a href="/editar/{{ user.id }}">Edição de itens</a></button>
-    </div>
-    <div >
-    <button class="btn btn-success preview" type="button" ><a href="/form/{{ user.id }}">Cadastrar Itens</a></button>
-    </div>
-    <div >
-    <button class="btn btn-success preview" type="button" ><a href="/form_servico/{{ user.id }}">Cadastrar serviços</a></button>
-    </div>
+    <div class="row  m-5">
+        <div class="col-sm-12 col-md-4 " >
+            <form>
+                <div class="form-group">
+                  <label for="nome">Estabelecimento</label>
+                  <input type="text" class="form-control" id="nome" name="nome"  placeholder="Entre com o nome do estabelecimento">
+               </div>
+                <div class="form-group">
+                  <label for="endereco">Endereco</label>
+                  <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Endereço do estabelecimento">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" placeholder="telefone">
+                </div>
+                <div class="form-group">
+                    <label for="horario">Horário de atendimento</label>
+                    <input type="text" class="form-control" id="hora_fun" name="hora_fun" placeholder="Horáro de atendimento">
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Apresentação</label>
+                    <textarea style="height:250px ;" class="form-control" id="descricao" name="descricao">Descreva brevemente uma apresentação do seu estabelecimento.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagem">Foto do estabelecimento</label>
+                    <input type="file" class="form-control" id="imagem" name="imagem">
+                </div>
+                <div class="form-group">
+                    
+                    <input type="hidden" class="form-control" id="user" name="user" value="{{ user.nome_mercado }}">
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
 
+        </div>
+        <div class="col-sm-12 col-md-8 bg-secundary" >
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
+            
+              <div class="col-md-12 bg-dark">
+                  <button class="btn btn-primary preview" type="button" ><a href="/editar/{{ user.id }}">Edição de itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="/form/{{ user.id }}">Cadastrar Itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="/form_servico/{{ user.id }}">Cadastrar serviços</a></button>
+              </div>
+        </div>
+        
+        
+        
+       
+
+        </div>
+
+
+
+
+
+
+
+
+
+            <div class="preview">
+                
+                
+                <h1>{{ user.nome_mercado }}</h1>
+                <di>
+            </div>
+    </div>
 </main>
 {% endblock %}
