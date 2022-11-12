@@ -18,10 +18,9 @@ def produtos():
         item = cursor.fetchall()
        
        # print(item)
-        itemList = list()
+        itemList = []
         for items in item:
-            itemList.append(
-                {
+              prod= {
                     "id": items[0],
                     "tipo":items[1],
                     "nome": items[2],
@@ -31,17 +30,18 @@ def produtos():
                     "valor": items[6],
                     "fim da promoção": items[7],
                     "foto": items[8],
-                    "data":items[9],
+                    "data":items[9]
                     #"Comércio": items[10]
                     
-
                 }
-            )
-            return jsonify(
-                mensagem = 'Lista de Itens',
-                dados= item,
-                comercio = items[10]
-            )
+        itemList.append(prod)
+
+            
+        return jsonify({
+            'mensagem' : 'Lista de Itens',
+            'dados': itemList,
+            'comercio': items[10]
+            })
     except Exception as ex:
         return jsonify({'menssagem': "ERRO: dados não existe!"})
 
@@ -64,7 +64,7 @@ def obter_item_por_id(id):
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
-#-------------------------------POST---------------------------------------------------
+#-------------------------------POST ITEM--------------------------------------------------
 @prod.route('/api/produtos', methods=['POST'])
 
 def incluir_item():
@@ -86,3 +86,33 @@ def incluir_item():
         return jsonify({'menssagem': "Error"})
 
 #--------------------------DELETE ITEMS-----------------------------------------------
+@prod.route('/api/produtos/<int:id>', methods=['DELETE'])
+def deletar_usuario(id):
+    try:
+        cursor = mydb.cursor()
+
+        sql = "DELETE FROM comercios_item WHERE item_id = '{0}' ".format(id)
+        cursor.execute(sql)
+    
+        mydb.commit()
+        
+        return jsonify({'menssagem': "Registro deletado com sucesso!"})
+    except Exception as ex:
+        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
+
+#------------------------UPATE-----------------------------------------------------
+@prod.route('/api/produtos/<id>', methods=['PUT'])
+def atualizar_usuario(id):
+    try:
+        user = request.json
+        cursor = mydb.cursor()
+
+        sql = """UPDATE  usuario SET nome='{0}', cpf='{1}', email='{2}', telefone='{3}' WHERE id = {4} """.format(user['nome'], user['cpf'], user['email'], user['telefone'], id)
+        cursor.execute(sql)
+    
+        mydb.commit()
+        
+        return jsonify({'menssagem': "Registro atualizado com sucesso!"})
+    except Exception as ex:
+        return jsonify ({'menssagem': "Erro: atualização não realizada!"})
+#-----------------------------------------------------------------------------------
