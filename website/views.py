@@ -89,15 +89,15 @@ def teste():
 
 @views.route('/form/<id>', methods=['GET','POST'])
 def form(id):
-    dono = User.query.get(id)
+    dono = Estabelecimentos.query.get(id)
     
 
     if request.method == 'POST':
-        user_fk = request.form.get('user_fk')
+        estab_fk = request.form.get('estab_fk')
         tipo = request.form.get('tipo')
         nome = request.form.get('nome')
         marca = request.form.get('marca')
-        volume =request.form.get('volume')
+        quantidade =request.form.get('quantidade')
         peso = request.form.get('peso')
         valor = request.form.get('valor')
         
@@ -113,9 +113,9 @@ def form(id):
         # Criar as validações dos inputs aqui
 
         new_item = Comercios_item( tipo=tipo, nome=nome, 
-        marca=marca, volume = volume,
+        marca=marca, quantidade = quantidade,
         peso= peso, valor=valor,foto=namefoto,
-        fim_promo=fim_promo, user_fk=user_fk
+        fim_promo=fim_promo, estab_fk=estab_fk
         )
 
 
@@ -129,11 +129,11 @@ def form(id):
 ##-----------Formulário de serviços -------------------------------------------------##
 @views.route('/form_servico/<id>', methods=['GET','POST'])
 def form_servico(id):
-    dono = User.query.get(id)
+    dono = Estabelecimentos.query.get(id)
     
 
     if request.method == 'POST':
-        user_fk = request.form.get('user_fk')
+        estab_fk = request.form.get('estab_fk')
         tipo = request.form.get('tipo')
         descricao = request.form.get('descricao')
         valor = request.form.get('valor')
@@ -152,7 +152,7 @@ def form_servico(id):
 
         new_item = Servicos( tipo=tipo, descricao=descricao, 
         valor=valor,horario_func=horario_func, foto=namefoto,
-         user_fk=user_fk
+         estab_fk=estab_fk
         )
 
 
@@ -181,17 +181,17 @@ def editar(id):
 @views.route('/mercadoa' ) #endpoints
 def mercadoa ():
     
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
+    dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
     return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route ( '/mercadob' )
 def  mercadob ():
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
+    dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
     return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
 
 ##-----------ROTA MERCADO -------------------------------------------------##
@@ -199,7 +199,7 @@ def  mercadob ():
 def  mercado ():
      mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
 
-     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
+     dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
 
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 

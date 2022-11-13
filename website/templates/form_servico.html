@@ -4,14 +4,15 @@
 <div class="container">
 
 <h3 align="Center">Serviço</h3>
+
 <form action="" method="POST" enctype="multipart/form-data">
 
     
     <div class="form-row">
         <div class="form-group">
             <div class="col-md-6 ">
-                <label for="mercado">Empresa:<h3>{{ dono.nome_empresa }}</h3></label>
-            <input type="hidden" id="user_fk" name="user_fk" value="{{ dono.id }}">
+                <label for="mercado">Empresa:<h3>{{ dono.nome }}</h3></label>
+            <input type="text" id="estab_fk" name="estab_fk" value="{{ dono.id }}">
             
             </div>
         </div>

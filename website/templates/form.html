@@ -12,8 +12,8 @@
     <div class="form-row">
         <div class="form-group">
             <div class="col-md-6 ">
-                <label for="mercado">Estabelecimento:<h5>{{ dono.nome_empresa }}</h5></label>
-            <input type="hidden" id="user_fk" name="user_fk" value="{{ dono.id }}">
+                <label for="mercado">Estabelecimento:<h5>{{ dono.nome }}</h5></label>
+            <input type="hidden" id="user_fk" name="estab_fk" value="{{ dono.id }}">
 
                 
 
@@ -57,7 +57,7 @@
     <div class="form-group">
         <div class="col-md-6 ">
             <label for="volume">Quantidade:</label>
-            <input type="volume" class="form-control" id="volume" name="volume" placeholder="Digite a Quantidade de itens">
+            <input type="volume" class="form-control" id="volume" name="quantidade" placeholder="Digite a Quantidade de itens">
 
         </div>
     </div>
