@@ -10,7 +10,7 @@ body, html{
     
 }
 main{
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     position: relative;
     
@@ -49,7 +49,7 @@ main{
  /* fundo das páginas */
 body{
     background-image: url("../image/fundo.jpg");
-    background-size:contain;
+    background-size:cover;
     background-repeat: repeat;
   
 }
@@ -197,9 +197,9 @@ form{
 .rodape{
     background-color:#333;
     height:auto;
-    margin-top: 20px;
+
     padding-top: 20px;
-    position: absolute;
+    position: relative;
     width: 100%;
 }
 .rede-social{

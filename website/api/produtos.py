@@ -101,7 +101,7 @@ def deletar_usuario(id):
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
-#------------------------UPATE-----------------------------------------------------
+#------------------------UPDATE-----------------------------------------------------
 @prod.route('/api/produtos/<int:id>', methods=['PUT'])
 def atualizar_produto(id):
     try:
