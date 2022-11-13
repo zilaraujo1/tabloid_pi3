@@ -4,7 +4,7 @@
 <main class="container" >
     <div class="row  m-5">
         <div class="col-sm-12 col-md-4 " >
-            <form>
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="nome">Estabelecimento</label>
                   <input type="text" class="form-control" id="nome" name="nome"  placeholder="Entre com o nome do estabelecimento">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group">
                     <label for="horario">Horário de atendimento</label>
-                    <input type="text" class="form-control" id="hora_fun" name="hora_fun" placeholder="Horáro de atendimento">
+                    <input type="text" class="form-control" id="hora_fun" name="hora_func" placeholder="Horáro de atendimento">
                 </div>
                 <div class="form-group">
                     <label for="descricao">Apresentação</label>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     
-                    <input type="hidden" class="form-control" id="user" name="user" value="{{ user.nome_mercado }}">
+                    <input type="text" class="form-control" id="user" name="user" value="{{ user.id }}">
                 </div>
             
                 <button type="submit" class="btn btn-primary">Submit</button>

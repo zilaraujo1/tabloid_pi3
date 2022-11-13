@@ -2,9 +2,9 @@ from unicodedata import category
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for, abort
 from flask_login import login_required, current_user
 
-#from models.tables import Estabelecimento 
+
 from .models import User
-from .models import Comercios_items
+from .models import Comercios_item
 from .models import Estabelecimentos
 from .models import Servicos
 
@@ -43,9 +43,42 @@ def delete(id):
      
 
 
-@views.route('/admin')
+@views.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+  #  dono = User.query.get(id)
+    
+
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        endereco = request.form.get('endereco')
+        telefone = request.form.get('telefone')
+        hora_func = request.form.get('hota_func')
+        descricao =request.form.get('descricao')
+        
+        user = request.form.get('user')
+        
+        file = request.files['imagem']
+        namefoto = file.filename
+        
+        
+        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        file.save(savePath)
+
+        
+
+        # Criar as validações dos inputs aqui
+
+        new_item = Estabelecimentos( nome=nome, endereco=endereco, 
+        telefone=telefone, hora_func = hora_func,
+        descricao= descricao,foto=namefoto,  user_fk=user
+        )
+
+
+        db.session.add(new_item)
+        db.session.commit()
+        flash('Produto salvo com sucesso', category='success')
+        return redirect(url_for('views.admin', user=current_user))
     
     return render_template("admin.html", user=current_user)
 
@@ -78,7 +111,7 @@ def form(id):
 
         # Criar as validações dos inputs aqui
 
-        new_item = Comercios_items( tipo=tipo, nome=nome, 
+        new_item = Comercios_item( tipo=tipo, nome=nome, 
         marca=marca, volume = volume,
         peso= peso, valor=valor,foto=namefoto,
         fim_promo=fim_promo, user_fk=user_fk

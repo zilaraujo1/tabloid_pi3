@@ -8,10 +8,9 @@ from sqlalchemy.sql import func
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150))
-    nome_empresa = db.Column(db.String(150))
+    cnpj = db.Column(db.String(150))
     password = db.Column(db.String(150))
     password = db.Column(db.String(150))
-    data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     estabelecimento = db.relationship('Estabelecimentos')
 
@@ -41,8 +40,8 @@ class Comercios_item(db.Model, UserMixin):
     valor = db.Column(db.String(10))
     fim_promo = db.Column(db.String(150))
     foto = db.Column(db.Text, nullable =False)
-    data = db.Column(db.String(20))
-    estab_fk = db.Column(db.Integer, db.ForeignKey("estabelecimento.id"))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estab_fk = db.Column(db.Integer, db.ForeignKey("estabelecimentos.id"))
     
 
 
@@ -53,6 +52,6 @@ class Servicos(db.Model, UserMixin):
     valor = db.Column(db.String(150))
     horario_func = db.Column(db.String(150))
     foto = db.Column(db.Text)
-    data = db.Column(db.String(20))
-    estab_fk = db.Column(db.Integer, db.ForeignKey('estabeleciemnto.id'))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estab_fk = db.Column(db.Integer, db.ForeignKey('estabelecimentos.id'))
 
