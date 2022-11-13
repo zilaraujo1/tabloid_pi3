@@ -42,11 +42,11 @@ def delete(id):
     return redirect(url_for('views.admin'))
      
 
-
+#-----------------------------------------------------------------------
 @views.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-  #  dono = User.query.get(id)
+    negocio = Estabelecimentos.query.all()
     
 
     if request.method == 'POST':
@@ -80,8 +80,9 @@ def admin():
         flash('Produto salvo com sucesso', category='success')
         return redirect(url_for('views.admin', user=current_user))
     
-    return render_template("admin.html", user=current_user)
+    return render_template("admin.html", negocio=negocio, user=current_user)
 
+#-----------------------------------------------------------------------
 @views.route('/cadastro')
 def teste():
     return render_template("cadastro.html", user=current_user)
