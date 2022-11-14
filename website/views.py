@@ -20,8 +20,10 @@ import os
 from werkzeug.utils import secure_filename
 
 UPLOAD = 'website/static/uploads'
+UPLOADB = 'website/static/uploads/servicos'
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), UPLOAD)
+UPLOAD_FOLDERB = os.path.join(os.getcwd(), UPLOADB)
 
 views = Blueprint('views', __name__)
 
@@ -144,7 +146,7 @@ def form_servico(id):
         namefoto = file.filename
         
         
-        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
         file.save(savePath)
 
 
