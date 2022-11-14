@@ -27,12 +27,14 @@ def create_app():
     from .auth import auth
     from .api.usuarios import api
     from  .api.produtos import prod
+    from  .api.negocios import estab
     
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(api, url_prefix='/' )
     app.register_blueprint(prod, url_prefix='/' )
+    app.register_blueprint(estab, url_prefix='/' )
     
     
 
