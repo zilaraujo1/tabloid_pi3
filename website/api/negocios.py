@@ -8,7 +8,7 @@ estab = Blueprint('comercios', __name__)
 
 
 #--------------------------GET ESTABELECIMENTOS-----------------------------------------------
-@estab.route('/api/empresa', methods=['GET'])
+@estab.route('/api/empresas', methods=['GET'])
 def empresa():
     try:
         cursor = mydb.cursor()
@@ -48,17 +48,17 @@ def empresa():
     
 #-------------------------------GET ITEMS ID--------------------------------------------------
 
-@estab.route('/api/produtos/<int:id>', methods=['GET'])
-def obter_item_por_id(id):
+@estab.route('/api/empresas/<int:id>', methods=['GET'])
+def obter_empresa_por_id(id):
     try:
         cursor = mydb.cursor()
 
-        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk WHERE item_id = '{0}' ".format(id)
+        sql = "SELECT I.id, I.nome, I.endereco, I.telefone, I.hora_func, I.descricao, I.imagem, E.nome FROM estabelecimentos AS I INNER JOIN usuario AS E on E.id = I.user_fk WHERE id = '{0}' ".format(id)
         cursor.execute(sql)
     
         item = cursor.fetchone()
         
-        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'foto': item[8], 'comércio': item[9]}
+        dados = {'id':item[0],'nome':item[1], 'endereço': item[2], 'telefone': item[3], 'horário de funcionamento': item[4], 'descrição': item[5], 'foto': item[6],  'gerente/dono': item[7]}
         return jsonify(dados)
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
