@@ -12,15 +12,16 @@ prod = Blueprint('produtos', __name__)
 def produtos():
     try:
         cursor = mydb.cursor()
-        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, I.data, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk"
-        #sql = "SELECT * FROM comercios_item"
+        #sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, I.data, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk"
+        sql = "SELECT * FROM comercios_item"
         cursor.execute(sql)
         item = cursor.fetchall()
        
        # print(item)
-        itemList = []
+        itemList = list()
         for items in item:
-              prod= {
+              itemList.append(
+                 {
                     "id": items[0],
                     "tipo":items[1],
                     "nome": items[2],
@@ -30,17 +31,19 @@ def produtos():
                     "valor": items[6],
                     "fim da promoção": items[7],
                     "foto": items[8],
-                    "data":items[9]
-                    #"Comércio": items[10]
+                    "data":items[9],
+                    "atualizado":items[10]
+                    #"Comércio": items[11]
                     
                 }
-        itemList.append(prod)
+              )
+        
 
             
         return jsonify({
             'mensagem' : 'Lista de Itens',
             'dados': itemList,
-            'comercio': items[10]
+            'comercio': items[11]
             })
     except Exception as ex:
         return jsonify({'menssagem': "ERRO: dados não existe!"})
@@ -70,10 +73,10 @@ def obter_item_por_id(id):
 def incluir_item():
     try:
         item = request.json
-       # print(item)
+        #print(item)
         cursor = mydb.cursor()
         sql ="""INSERT INTO comercios_item (item_id, tipo,nome, marca, quantidade, peso, valor, fim_promo, foto, data, estab_fk) 
-        VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item'],item['tipo'],item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'],item['fim promo'], item['foto'], item['data'], item['comercio'])
+        VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item'],item['tipo'],item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'],item['fim_promo'], item['foto'], item['data'], item['comercio'])
         
         cursor.execute(sql)
     
