@@ -144,10 +144,11 @@ def form_servico(id):
         
         file = request.files['foto']
         namefoto = file.filename
+        if file:
         
         
-        savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
-        file.save(savePath)
+            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
+            file.save(savePath)
 
 
         # Criar as validações dos inputs aqui
