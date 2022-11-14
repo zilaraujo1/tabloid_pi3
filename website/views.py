@@ -19,11 +19,13 @@ import os
 """
 from werkzeug.utils import secure_filename
 
-UPLOAD = 'website/static/uploads'
+UPLOAD = 'website/static/uploads/comercios'
 UPLOADB = 'website/static/uploads/servicos'
+UPLOADC = 'website/static/uploads/logos'
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), UPLOAD)
 UPLOAD_FOLDERB = os.path.join(os.getcwd(), UPLOADB)
+UPLOAD_FOLDERC = os.path.join(os.getcwd(), UPLOADB)
 
 views = Blueprint('views', __name__)
 
@@ -60,11 +62,20 @@ def admin():
         
         user = request.form.get('user')
         
-        file = request.files['imagem']
+        file = request.files['foto']
+        fileb = request.files['fotob']
+        filec = request.files['fotoc']
+
         namefoto = file.filename
+        namefotob = fileb.filename
+        namefotoc = filec.filename
         
         
-        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(file.filename))
+        file.save(savePath)
+        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(fileb.filename))
+        file.save(savePath)
+        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filec.filename))
         file.save(savePath)
 
         
@@ -73,7 +84,7 @@ def admin():
 
         new_item = Estabelecimentos( nome=nome, endereco=endereco, 
         telefone=telefone, hora_func = hora_func,
-        descricao= descricao,foto=namefoto,  user_fk=user
+        descricao= descricao,foto=namefoto, fotob=namefotob, fotoc=namefotoc, user_fk=user
         )
 
 
@@ -104,19 +115,22 @@ def form(id):
         valor = request.form.get('valor')
         
         file = request.files['foto']
+       
         namefoto = file.filename
+       
+        if file:
         
+            # salva na pasta uploads/servicos
+            savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+            file.save(savePath)
         
-        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
-        file.save(savePath)
-
         fim_promo = request.form.get('fim_promo')
 
         # Criar as validações dos inputs aqui
 
         new_item = Comercios_item( tipo=tipo, nome=nome, 
         marca=marca, quantidade = quantidade,
-        peso= peso, valor=valor,foto=namefoto,
+        peso= peso, valor=valor,foto=namefoto,#fotob=namefotob, fotoc=namefotoc,
         fim_promo=fim_promo, estab_fk=estab_fk
         )
 
@@ -143,18 +157,29 @@ def form_servico(id):
        
         
         file = request.files['foto']
+        fileb = request.files['fotob']
+        filec = request.files['fotoc']
+        filed = request.files['fotod']
+        # nomes das fotos
         namefoto = file.filename
+        namefotob = fileb.filename
+        namefotoc = filec.filename
+        namefotod = filed.filename
         if file:
         
-        
+            # salva na pasta uploads/servicos
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
+            file.save(savePath)
+            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(fileb.filename))
+            file.save(savePath)
+            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filec.filename))
             file.save(savePath)
 
 
         # Criar as validações dos inputs aqui
 
         new_item = Servicos( tipo=tipo, descricao=descricao, 
-        valor=valor,horario_func=horario_func, foto=namefoto,
+        valor=valor,horario_func=horario_func, foto=namefoto, fotob=namefotob, fotoc=namefotoc,
          estab_fk=estab_fk
         )
 
