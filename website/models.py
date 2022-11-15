@@ -22,6 +22,9 @@ class Estabelecimentos(db.Model, UserMixin):
     hora_func = db.Column(db.String)
     descricao = db.Column(db.Text)
     foto = db.Column(db.Text)
+    fotob = db.Column(db.Text)
+    fotoc = db.Column(db.Text)
+    fotod = db.Column(db.Text)
     user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
     servicos = db.relationship('Comercios_item')
     comercios_item = db.relationship('Servicos')
@@ -52,6 +55,10 @@ class Servicos(db.Model, UserMixin):
     valor = db.Column(db.String(150))
     horario_func = db.Column(db.String(150))
     foto = db.Column(db.Text)
+    fotob = db.Column(db.Text)
+    fotoc = db.Column(db.Text)
+    fotod = db.Column(db.Text)
+   
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     estab_fk = db.Column(db.Integer, db.ForeignKey('estabelecimentos.id'))
 

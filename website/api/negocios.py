@@ -4,16 +4,15 @@ from flask_login import login_required, current_user
 
 from ..mysql import mydb
 
-prod = Blueprint('produtos', __name__)
+estab = Blueprint('comercios', __name__)
 
 
-#--------------------------GET ITEMS-----------------------------------------------
-@prod.route('/api/produtos', methods=['GET'])
-def produtos():
+#--------------------------GET ESTABELECIMENTOS-----------------------------------------------
+@estab.route('/api/empresas', methods=['GET'])
+def empresa():
     try:
         cursor = mydb.cursor()
-        #sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, I.data, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk"
-        sql = "SELECT * FROM comercios_item"
+        sql = "SELECT * FROM estabelecimentos"
         cursor.execute(sql)
         item = cursor.fetchall()
        
@@ -23,17 +22,14 @@ def produtos():
               itemList.append(
                  {
                     "id": items[0],
-                    "tipo":items[1],
-                    "nome": items[2],
-                    "marca": items[3],
-                    "qtde": items[4],
-                    "peso": items[5],
-                    "valor": items[6],
-                    "fim da promoção": items[7],
-                    "foto": items[8],
-                    "data":items[9],
-                    "atualizado":items[10]
-                    #"Comércio": items[11]
+                    "nome":items[1],
+                    "endereço": items[2],
+                    "telefone": items[3],
+                    "horário de funcionamento": items[4],
+                    "descrição": items[5],
+                    "imagem": items[6],
+                    "gerente/dono": items[7],
+                 
                     
                 }
               )
@@ -42,8 +38,8 @@ def produtos():
             
         return jsonify({
             'mensagem' : 'Lista de Itens',
-            'dados': itemList,
-            'comercio': items[11]
+            'dados': itemList
+            
             })
     except Exception as ex:
         return jsonify({'menssagem': "ERRO: dados não existe!"})
@@ -52,23 +48,23 @@ def produtos():
     
 #-------------------------------GET ITEMS ID--------------------------------------------------
 
-@prod.route('/api/produtos/<int:id>', methods=['GET'])
-def obter_item_por_id(id):
+@estab.route('/api/empresas/<int:id>', methods=['GET'])
+def obter_empresa_por_id(id):
     try:
         cursor = mydb.cursor()
 
-        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk WHERE item_id = '{0}' ".format(id)
+        sql = "SELECT I.id, I.nome, I.endereco, I.telefone, I.hora_func, I.descricao, I.imagem, E.nome FROM estabelecimentos AS I INNER JOIN usuario AS E on E.id = I.user_fk WHERE id = '{0}' ".format(id)
         cursor.execute(sql)
     
         item = cursor.fetchone()
         
-        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'foto': item[8], 'comércio': item[9]}
+        dados = {'id':item[0],'nome':item[1], 'endereço': item[2], 'telefone': item[3], 'horário de funcionamento': item[4], 'descrição': item[5], 'foto': item[6],  'gerente/dono': item[7]}
         return jsonify(dados)
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
 #-------------------------------POST ITEM--------------------------------------------------
-@prod.route('/api/produtos', methods=['POST'])
+@estab.route('/api/produtos', methods=['POST'])
 
 def incluir_item():
     try:
@@ -90,7 +86,7 @@ def incluir_item():
         return jsonify({'menssagem': "Error"})
 
 #--------------------------DELETE ITEMS-----------------------------------------------
-@prod.route('/api/produtos/<int:id>', methods=['DELETE'])
+@estab.route('/api/produtos/<int:id>', methods=['DELETE'])
 def deletar_usuario(id):
     try:
         cursor = mydb.cursor()
@@ -105,7 +101,7 @@ def deletar_usuario(id):
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
 #------------------------UPDATE-----------------------------------------------------
-@prod.route('/api/produtos/<int:id>', methods=['PUT'])
+@estab.route('/api/produtos/<int:id>', methods=['PUT'])
 def atualizar_produto(id):
     try:
         item = request.json
