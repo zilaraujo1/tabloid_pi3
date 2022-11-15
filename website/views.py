@@ -2,9 +2,9 @@ from unicodedata import category
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for, abort
 from flask_login import login_required, current_user
 
-#from models.tables import Estabelecimento 
+
 from .models import User
-from .models import Comercios_items
+from .models import Comercios_item
 from .models import Estabelecimentos
 from .models import Servicos
 
@@ -42,28 +42,62 @@ def delete(id):
     return redirect(url_for('views.admin'))
      
 
-
-@views.route('/admin')
+#-----------------------------------------------------------------------
+@views.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+    negocio = Estabelecimentos.query.all()
     
-    return render_template("admin.html", user=current_user)
 
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        endereco = request.form.get('endereco')
+        telefone = request.form.get('telefone')
+        hora_func = request.form.get('hota_func')
+        descricao =request.form.get('descricao')
+        
+        user = request.form.get('user')
+        
+        file = request.files['imagem']
+        namefoto = file.filename
+        
+        
+        savePath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        file.save(savePath)
+
+        
+
+        # Criar as validações dos inputs aqui
+
+        new_item = Estabelecimentos( nome=nome, endereco=endereco, 
+        telefone=telefone, hora_func = hora_func,
+        descricao= descricao,foto=namefoto,  user_fk=user
+        )
+
+
+        db.session.add(new_item)
+        db.session.commit()
+        flash('Produto salvo com sucesso', category='success')
+        return redirect(url_for('views.admin', user=current_user))
+    
+    return render_template("admin.html", negocio=negocio, user=current_user)
+
+#-----------------------------------------------------------------------
 @views.route('/cadastro')
 def teste():
     return render_template("cadastro.html", user=current_user)
 
 @views.route('/form/<id>', methods=['GET','POST'])
 def form(id):
-    dono = User.query.get(id)
+    dono = Estabelecimentos.query.get(id)
     
 
     if request.method == 'POST':
-        user_fk = request.form.get('user_fk')
+        estab_fk = request.form.get('estab_fk')
         tipo = request.form.get('tipo')
         nome = request.form.get('nome')
         marca = request.form.get('marca')
-        volume =request.form.get('volume')
+        quantidade =request.form.get('quantidade')
         peso = request.form.get('peso')
         valor = request.form.get('valor')
         
@@ -78,10 +112,10 @@ def form(id):
 
         # Criar as validações dos inputs aqui
 
-        new_item = Comercios_items( tipo=tipo, nome=nome, 
-        marca=marca, volume = volume,
+        new_item = Comercios_item( tipo=tipo, nome=nome, 
+        marca=marca, quantidade = quantidade,
         peso= peso, valor=valor,foto=namefoto,
-        fim_promo=fim_promo, user_fk=user_fk
+        fim_promo=fim_promo, estab_fk=estab_fk
         )
 
 
@@ -95,11 +129,11 @@ def form(id):
 ##-----------Formulário de serviços -------------------------------------------------##
 @views.route('/form_servico/<id>', methods=['GET','POST'])
 def form_servico(id):
-    dono = User.query.get(id)
+    dono = Estabelecimentos.query.get(id)
     
 
     if request.method == 'POST':
-        user_fk = request.form.get('user_fk')
+        estab_fk = request.form.get('estab_fk')
         tipo = request.form.get('tipo')
         descricao = request.form.get('descricao')
         valor = request.form.get('valor')
@@ -118,7 +152,7 @@ def form_servico(id):
 
         new_item = Servicos( tipo=tipo, descricao=descricao, 
         valor=valor,horario_func=horario_func, foto=namefoto,
-         user_fk=user_fk
+         estab_fk=estab_fk
         )
 
 
@@ -147,17 +181,17 @@ def editar(id):
 @views.route('/mercadoa' ) #endpoints
 def mercadoa ():
     
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
+    dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
     return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route ( '/mercadob' )
 def  mercadob ():
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
+    dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
 
-    dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
+    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
     return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
 
 ##-----------ROTA MERCADO -------------------------------------------------##
@@ -165,7 +199,7 @@ def  mercadob ():
 def  mercado ():
      mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
 
-     dados_items = db.session.query(Items).filter(Items.estabelecimento_id==21)
+     dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
 
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 

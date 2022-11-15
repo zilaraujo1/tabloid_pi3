@@ -23,7 +23,7 @@ def getUsuario():
                 {
                 'id': usuario[0],
                 'nome': usuario[1],
-                'cpf': usuario[2],
+                'cnpj': usuario[2],
                 'email': usuario[3],
                 'telefone': usuario[4]
 
@@ -60,7 +60,7 @@ def incluir_usuario():
     try:
         user = request.json
         cursor = mydb.cursor()
-        sql ="""INSERT INTO usuario (id,nome,cpf, email, telefone) VALUES({0},'{1}','{2}','{3}','{4}')""".format(user['id'],user['nome'], user['cpf'], user['email'], user['telefone'])
+        sql ="""INSERT INTO usuario (id,nome,cnpj, email, telefone) VALUES({0},'{1}','{2}','{3}','{4}')""".format(user['id'],user['nome'], user['cnpj'], user['email'], user['telefone'])
         cursor.execute(sql)
         mydb.commit()
 

@@ -4,22 +4,23 @@ from flask_login import login_required, current_user
 
 from ..mysql import mydb
 
-api = Blueprint('produtos', __name__)
+prod = Blueprint('produtos', __name__)
 
 
 #--------------------------GET ITEMS-----------------------------------------------
-@api.route('/api/produtos', methods=['GET'])
+@prod.route('/api/produtos', methods=['GET'])
 def produtos():
     try:
         cursor = mydb.cursor()
-        sql = "SELECT * FROM comercios_item"
+        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, I.data, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk"
+        #sql = "SELECT * FROM comercios_item"
         cursor.execute(sql)
         item = cursor.fetchall()
-
-        itemList = list()
+       
+       # print(item)
+        itemList = []
         for items in item:
-            itemList.append(
-                {
+              prod= {
                     "id": items[0],
                     "tipo":items[1],
                     "nome": items[2],
@@ -28,75 +29,57 @@ def produtos():
                     "peso": items[5],
                     "valor": items[6],
                     "fim da promoção": items[7],
-                    "dono": items[9]
-
+                    "foto": items[8],
+                    "data":items[9]
+                    #"Comércio": items[10]
+                    
                 }
-            )
-            return jsonify(
-                mensagem = 'Lista de Usuários',
-                dados= itemList
-            )
+        itemList.append(prod)
+
+            
+        return jsonify({
+            'mensagem' : 'Lista de Itens',
+            'dados': itemList,
+            'comercio': items[10]
+            })
     except Exception as ex:
         return jsonify({'menssagem': "ERRO: dados não existe!"})
 
    
     
 #-------------------------------GET ITEMS ID--------------------------------------------------
-@api.route('/api/produtos/<id>/')
-def getUsuario():
-    try:
-        cursor = mydb.cursor()
-        sql = "SELECT * FROM usuario"
-        cursor.execute(sql)
 
-        users = cursor.fetchall()
-        userList = list()
-        for usuario in users:
-            userList.append(
-                {
-                'id': usuario[0],
-                'nome': usuario[1],
-                'cpf': usuario[2],
-                'email': usuario[3],
-                'telefone': usuario[4]
-
-
-                }
-            )
-        return jsonify(
-            mensagem = 'Lista de Usuários',
-            dados= userList
-        )
-    except Exception as ex:
-        return jsonify({'menssagem': "ERRO: dados não existe!"})
-
-
-#---------------------------USUARIOS ID--------------------------------------------------------
-@api.route('/api/produtos/<int:id>', methods=['GET'])
+@prod.route('/api/produtos/<int:id>', methods=['GET'])
 def obter_item_por_id(id):
     try:
         cursor = mydb.cursor()
 
-        sql = "SELECT * FROM comercios_item WHERE item_id = '{0}' ".format(id)
+        sql = "SELECT I.item_id, I.tipo, I.nome, I.marca, I.quantidade, I.peso, I.valor, I.fim_promo,I.foto, E.nome FROM comercios_item AS I INNER JOIN estabelecimentos AS E on E.id = I.estab_fk WHERE item_id = '{0}' ".format(id)
         cursor.execute(sql)
     
         item = cursor.fetchone()
         
-        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'dono': item[9]}
+        dados = {'id':item[0], 'tipo':item[1],'nome':item[2], 'marca': item[3], 'qtde': item[4], 'peso': item[5], 'valor': item[6], 'fim da promoção': item[7], 'foto': item[8], 'comércio': item[9]}
         return jsonify(dados)
     except Exception as ex:
         return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
-#-------------------------------POST---------------------------------------------------
-@api.route('/api/produtos', methods=['POST'])
+#-------------------------------POST ITEM--------------------------------------------------
+@prod.route('/api/produtos', methods=['POST'])
+
 def incluir_item():
     try:
         item = request.json
+       # print(item)
         cursor = mydb.cursor()
-        sql ="""INSERT INTO comercios_item (tipo,nome, marca, quantidade, peso, valor, fim_promo, nome_user) VALUES('{1}','{2}','{3}','{4}','{5}', '{6}','{7}','{8}')""".format( item['tipo'],item['nome'], item['marca'], item['quantidade'], item['peso'], item['valor'],item['fim_promo'], item['nome_user_fk'])
+        sql ="""INSERT INTO comercios_item (item_id, tipo,nome, marca, quantidade, peso, valor, fim_promo, foto, data, estab_fk) 
+        VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item'],item['tipo'],item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'],item['fim promo'], item['foto'], item['data'], item['comercio'])
+        
         cursor.execute(sql)
+    
         mydb.commit()
 
+        
         return jsonify(
             mensagem="Item cadastrado com sucesso",
         )
@@ -104,3 +87,36 @@ def incluir_item():
         return jsonify({'menssagem': "Error"})
 
 #--------------------------DELETE ITEMS-----------------------------------------------
+@prod.route('/api/produtos/<int:id>', methods=['DELETE'])
+def deletar_usuario(id):
+    try:
+        cursor = mydb.cursor()
+
+        sql = "DELETE FROM comercios_item WHERE item_id = '{0}' ".format(id)
+        cursor.execute(sql)
+    
+        mydb.commit()
+        
+        return jsonify({'menssagem': "Registro deletado com sucesso!"})
+    except Exception as ex:
+        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
+
+#------------------------UPDATE-----------------------------------------------------
+@prod.route('/api/produtos/<int:id>', methods=['PUT'])
+def atualizar_produto(id):
+    try:
+        item = request.json
+        print(item)
+        cursor = mydb.cursor()
+
+        sql = """UPDATE  comercios_item SET tipo='{0}', nome='{1}', marca ='{2}', quantidade ='{3}', peso ='{4}', valor = '{5}', fim_promo = '{6}', foto = '{7}', data = '{8}', estab_fk = {9} 
+        WHERE item_id ={10}""".format(item['tipo'], item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'], item['fim promo'], item['foto'], item['comercio'], id)
+        
+        cursor.execute(sql)
+    
+        mydb.commit()
+        
+        return jsonify({'menssagem': "Registro atualizado com sucesso!"})
+    except Exception as ex:
+        return jsonify ({'menssagem': "Erro: atualização não realizada!"})
+#-----------------------------------------------------------------------------------
