@@ -1,66 +1,5 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Home Espaço Mulher</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Add a black background color and some padding to the footer */
-    footer {
-      background-color: #FAEBD7;
-      padding: 25px;
-    }
-    
-  .carousel-inner img {
-      width: 25%; /* Set width to 25% */
-      margin: auto;
-      min-height:200px;
-  }
-
-  /* Hide the carousel text when the screen is less than 600 pixels wide */
-  @media (max-width: 600px) {
-    .carousel-caption {
-      display: none; 
-    }
-  }
-  </style>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Tabloide_CT</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Comércios</a></li>
-        <li><a href="#">Serviços</a></li>
-        <li><a href="#">Contatos</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> CADASTRO</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+{% extends "base.html" %} {% block title %}Mercado A{% endblock %}
+{% block content %}
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -116,7 +55,7 @@
   <div class="row">
     <div class="col-sm-4">
       <img src="../static/uploads/servicos/{{ serv.fotod }}" class="img-responsive" style="width:100%" alt="Image">
-      <p>{{ serv.descricao }}</p>{{ serv.foto}}
+      <p>{{ serv.descricao }}</p>
     </div>
     <div class="col-sm-4"> 
       <img src="../static/uploads/servicos/{{ serv.foto }}" class="img-responsive" style="width:100%" alt="image">
@@ -138,7 +77,7 @@
     </div>
   </div>
 </div><br>
-
+{% endblock %}
 <footer class="container-fluid text-center">
   <p>{{ dono.endereco }}</p>
 </footer>

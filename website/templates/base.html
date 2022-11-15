@@ -1,141 +1,117 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!--myScript-->
-    <script type="text/javascript" src="{{ url_for('static', filename='script/myscript.js')}}"></script>
-   <!--MyStyle-->
+  <title>HomePageTabloide</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Adicione uma cor de fundo cinza e algum preenchimento ao rodapé */
+    footer {
+      background-color: #FAEBD7;
+      padding: 25px;
+    }
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css')}}">
-    
-    <title>{% block title %}Home{% endblock %}</title>
+    .carousel-inner img {
+      width: 25%; /* Set width to 25% */
+      min-height: 200px;
+    }
 
-
-
+    /* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none; 
+      }
+    }
+  </style>
 </head>
 <body>
-  
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    
-    <button 
-    class="navbar-toggler" 
-    type="button" 
-    data-toggle="collapse" 
-    data-target="#navbar"
-    >
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-            {% if user.is_authenticated %}
-            <a class="nav-item nav-link" id="admin" href="/admin">Administrativo</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Comércios
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="/mercadoa">Mercado A</a>
-                  <a class="dropdown-item" href="/mercadob">Mercado B</a>
-                  <a class="dropdown-item" href="/mercadoc">Mercado C</a>
-                </div>
-                </div>
-            {% else %}
-            <a class="nav-item nav-link" id="home" href="/">Home</a>
-            <a class="nav-item nav-link" id="login" href="/login">Login</a>
-            <a class="nav-item nav-link" id="signUp" href="/cadastro">Cadastre-se</a>
-            <a class="nav-item nav-link" id="signUp" href="/servicos">Serviços</a>
-           
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Comércios
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="/mercadoa">Mercado A</a>
-                  <a class="dropdown-item" href="/mercadob">Mercado B</a>
-                  <a class="dropdown-item" href="/mercadoc">Mercado C</a>
-                </div>
-              </div>
-            {% endif %}
-        </div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <b><a class="navbar-brand" href="/">TABLOIDE_CT</a><b>
     </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">HOME</a></li>
+        
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">COMÉRCIOS<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">ALIMENTOS</a></li>
+          <li><a href="#">ARTES E DECORAÇÃO</a></li>
+          <li><a href="#">ELETRÔNICOS</a></li>
+          <li><a href="#">DIVERSOS</a></li>
+        </ul>
+    </li>
+
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/servicos">SERVIÇOS<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/beleza">BELEZA</a></li>
+          <li><a href="#">CONSTRUÇÃO</a></li>
+          <li><a href="#">LIMPEZA</a></li>
+          <li><a href="#">DIVERSOS</a></li>
+        </ul>
+      </li>
+        
+	<button type="button" class="btn navbar-btn" data-toggle="modal" data-target="#myModal">QUEM SOMOS</button>
+
+  	<!-- Modal -->
+  	<div class="modal fade" id="myModal" role="dialog">
+   	 <div class="modal-dialog">
+    
+     	 <!-- Modal content-->
+      	<div class="modal-content">
+      	  <div class="modal-header">
+         	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+         	 <h4 class="modal-title">TABLOIDE DIGITAL CT</h4>
+      	 </div>
+       	 <div class="modal-body">
+        	  <p>Esse site faz parte do Projeto Integrador III dos cursos de Engenharia de Computação, Bacharelado em Ciência de Dados e Tecnologia da Universidade Virtual do Estado de São Paulo. Em formato de Tabloide Digital estaremos divulgando produtos de comércios e serviços do bairro. </p>
+        	</div>
+       	 <div class="modal-footer">
+        	  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	</div>
+      	</div>      
+   	 </div>
+  	</div>  
+	
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/cadastro"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
-<!-- Messagens de erro ou sucesso-->
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}  
-        {% for category, message in messages %} 
-            {% if category == 'error' %}
-            <div class="alert alert-danger alter-dismissable fade show" role="alert">
-               {{ message }} 
-               <button type="button" class="close" data-dismiss="alert">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            {% else %}
-            <div class="alert alert-success alter-dismissable fade show" role="alert">
-                {{ message }} 
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-             </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+    <div class="container">
+        {% block content %}
 
 
 
-<!--Conteúdo das páginas -->
-<main>
 
-    {% block content %}
-    {% endblock %}
-  <!--  <div class=" rodape"> 
-        <div class="rede-social ">
-            <ul>
-                <h6><ol>Institucional</ol></h6>
-                <ol>Sobre tabloide</ol>
-                <ol>Mapa do site</ol>
-                <ol>Politica de privacidade</ol>
-            </ul>
-        </div>
-        <div class="rede-social">
-            <ul>  
-                <h6><ol>Atendimento ao cliente</ol></h6>
-                <ol>Oferta dia</ol>
-                <ol>Promoções semanais</ol>
-                <ol>Como comprar</ol>
-                
-            </ul>       
-        </div>
-        <div class="rede-social">  
-            <ul>  
-                <h6><ol>Siga o tabloide</ol></h6>
-                <img class="facebook-base"src="{{ url_for('static', filename='image/facebook.png')}}" class="figure-img img-fluid rounded  figure-acessibilidade" alt="ìcone do facebook" >
-                <img class="whats-base" src="{{ url_for('static', filename='image/whats.png')}}" class="figure-img img-fluid rounded  figure-acessibilidade" alt="Ícone do whatssap" >
-                
-            </ul>     
-        </div> 
-        <div class="rede-social">    
-            <ul>  
-                <h4<ol>Acessibilidade</ol></h4>
-                
-                <img  src="{{ url_for('static', filename='image/acessibilidade.png')}}" class="figure-img img-fluid rounded  figure-acessibilidade" alt="A generic square placeholder image with rounded corners in a figure." >
-                
-            </ul>  
-        </div> 
-    </div> -->
+        {% endblock %}
+    <footer class="container-fluid text-center">
+      <b><p>TABLOIDE DIGITAL CT - VENHA FAZER PARTE</p><b>
+    </footer>
+    </body>
+    </html>
     
-    
-</main>
-    
-    
-    
+
+</head>
+   
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/cdd0c2c5dc.js" crossorigin="anonymous"></script>
     <!--Bootstrap-->
