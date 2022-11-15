@@ -25,7 +25,7 @@ UPLOADC = 'website/static/uploads/logos'
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), UPLOAD)
 UPLOAD_FOLDERB = os.path.join(os.getcwd(), UPLOADB)
-UPLOAD_FOLDERC = os.path.join(os.getcwd(), UPLOADB)
+UPLOAD_FOLDERC = os.path.join(os.getcwd(), UPLOADC)
 
 views = Blueprint('views', __name__)
 
@@ -35,8 +35,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 #@login_required
 def home():
-
-    return render_template("index.html", user=current_user)
+    dono = Estabelecimentos.query.all()
+    return render_template("index.html", dono=dono, user=current_user)
 
 ################# Rotas do crud (Criar, editar, deletar)###############################
 
@@ -65,18 +65,22 @@ def admin():
         file = request.files['foto']
         fileb = request.files['fotob']
         filec = request.files['fotoc']
+        filed = request.files['fotod']
 
         namefoto = file.filename
         namefotob = fileb.filename
         namefotoc = filec.filename
+        namefotod = filed.filename
         
         
         savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(file.filename))
         file.save(savePath)
         savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(fileb.filename))
-        file.save(savePath)
+        fileb.save(savePath)
         savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filec.filename))
-        file.save(savePath)
+        filec.save(savePath)
+        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filed.filename))
+        filed.save(savePath)
 
         
 
@@ -84,7 +88,8 @@ def admin():
 
         new_item = Estabelecimentos( nome=nome, endereco=endereco, 
         telefone=telefone, hora_func = hora_func,
-        descricao= descricao,foto=namefoto, fotob=namefotob, fotoc=namefotoc, user_fk=user
+        descricao= descricao,foto=namefoto, fotob=namefotob, fotoc=namefotoc,
+        fotod=namefotod, user_fk=user
         )
 
 
@@ -171,16 +176,18 @@ def form_servico(id):
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
             file.save(savePath)
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(fileb.filename))
-            file.save(savePath)
+            fileb.save(savePath)
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filec.filename))
-            file.save(savePath)
+            filec.save(savePath)
+            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filed.filename))
+            filed.save(savePath)
 
 
         # Criar as validações dos inputs aqui
 
         new_item = Servicos( tipo=tipo, descricao=descricao, 
         valor=valor,horario_func=horario_func, foto=namefoto, fotob=namefotob, fotoc=namefotoc,
-         estab_fk=estab_fk
+         fotod=namefotod, estab_fk=estab_fk
         )
 
 

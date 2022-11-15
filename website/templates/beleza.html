@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,45 +72,30 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="{{ url_for('static', filename='image/mulher/logo2.jpg')}}" alt="Image">
+        <img src="../static/uploads/logos/{{ dono.fotob }}" alt="Foto">
         <div class="carousel-caption">
         </div>
       </div>
+      
 
       <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/logo5.jpg')}}" alt="Image">
+        <img src="../static/uploads/logos/{{ dono.foto }}" alt="sem FOTO">
         <div class="carousel-caption">
         </div> 
 
        </div>
+    
        <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/logo4.jpg')}}" alt="Image">
+        <img src="../static/uploads/logos/{{ dono.fotoc }}" alt="Image">
         <div class="carousel-caption">
         </div>      
        
        </div>
        <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/unha1.jpg')}}" alt="Image">
+        <img src="../static/uploads/logos/{{ dono.fotod }}" alt="Image">
         <div class="carousel-caption">
         </div>  
     
-       </div>
-       <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/unha2.jpg')}}" alt="Image">
-        <div class="carousel-caption">
-        </div> 
-
-       </div>
-       <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/unha3.jpg')}}" alt="Image">
-        <div class="carousel-caption">
-        </div> 
-
-       </div>
-       <div class="item">
-        <img src="{{ url_for('static', filename='image/mulher/unha4.jpg')}}" alt="Image">
-        <div class="carousel-caption">
-        </div> 
 
       </div>
     </div>
@@ -128,12 +115,12 @@
   <h3>AGENDE SEU HORÁRIO</h3><br>
   <div class="row">
     <div class="col-sm-4">
-      <img src="{{ url_for('static', filename='image/mulher/unha.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Espaço Amplo</p>
+      <img src="../static/uploads/servicos/{{ serv.fotod }}" class="img-responsive" style="width:100%" alt="Image">
+      <p>{{ serv.descricao }}</p>{{ serv.foto}}
     </div>
     <div class="col-sm-4"> 
-      <img src="{{ url_for('static', filename='image/mulher/unha4.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Feito com carinho</p>    
+      <img src="../static/uploads/servicos/{{ serv.foto }}" class="img-responsive" style="width:100%" alt="image">
+      <p>{{ serv.descricao }}</p>    
     </div>
     <div class="col-sm-4">
       <div class="well">
@@ -153,7 +140,7 @@
 </div><br>
 
 <footer class="container-fluid text-center">
-  <p>Cidade Tiradentes/SP</p>
+  <p>{{ dono.endereco }}</p>
 </footer>
 
 </body>

@@ -24,6 +24,7 @@ class Estabelecimentos(db.Model, UserMixin):
     foto = db.Column(db.Text)
     fotob = db.Column(db.Text)
     fotoc = db.Column(db.Text)
+    fotod = db.Column(db.Text)
     user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
     servicos = db.relationship('Comercios_item')
     comercios_item = db.relationship('Servicos')

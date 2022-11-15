@@ -37,11 +37,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-     <b><a class="navbar-brand" href="#">TABLOIDE_CT</a><b>
+     <b><a class="navbar-brand" href="/">TABLOIDE_CT</a><b>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">HOME</a></li>
+        <li class="active"><a href="/">HOME</a></li>
         
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">COMÉRCIOS<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -86,6 +86,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/cadastro"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
       </ul>
     </div>
   </div>
@@ -146,7 +149,7 @@
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" alt="Image">
+            <a href="/servicos/{{ user.id }}"><img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" alt="Image"></a>
           <div class="carousel-caption">
           </div>  
 
@@ -259,33 +262,38 @@
   <b><h3>OUTROS COMÉRCIOS E SERVIÇOS</h3><b>
   <br>
   <div class="row">
+    {% for donos in dono %}
     <div class="col-sm-2">
-      <img src="{{ url_for('static', filename='image/home/polianapilates.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Poliana França</p>
+      <a href="/servicos/{{ donos.id }}"><img src="../static/uploads/logos/{{ donos.foto }}" class="img-responsive" style="width:100%" alt="Image">
+      <p>{{ donos.nome }}</p></a>
+    </div>
+    {% endfor %}
+   <!-- <div class="col-sm-2"> 
+      <a href="/servicos/{{ 3 }}"><img src="{{ url_for('static', filename='image/home/atelierdiego.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Atelier Diego Amoroso</p></a>    
     </div>
     <div class="col-sm-2"> 
-      <img src="{{ url_for('static', filename='image/home/atelierdiego.jpg')}}.jpg" class="img-responsive" style="width:100%" alt="Image">
-      <p>Atelier Diego Amoroso</p>    
+      <a href="/servicos/{{ 2 }}"><img src="{{ url_for('static', filename='image/home/studiotatu.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Dash Studio Tattoo</p></a>
     </div>
     <div class="col-sm-2"> 
-      <img src="{{ url_for('static', filename='image/home/studiotatu.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Dash Studio Tattoo</p>
-    </div>
-    <div class="col-sm-2"> 
-      <img src="{{ url_for('static', filename='image/home/divinosabor.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Divino Sabor Bolos & Doces</p>
+      <a href="/servicos/{{ 5 }}"><img src="{{ url_for('static', filename='image/home/divinosabor.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Divino Sabor Bolos & Doces</p></a>
     </div> 
     <div class="col-sm-2"> 
-      <img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>Espaço Mulher Esmalteria</p>
-    </div>     
-    <div class="col-sm-2"> 
-      <img src="{{ url_for('static', filename='image/home/logo4.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
-      <p>DeRa Studio</p>
+      <a href="/servicos/{{ 7 }}"><img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <p>Espaço Mulher Esmalteria</p></a>
     </div> 
+     
+    <div class="col-sm-2"> 
+      <a href="/servicos/{{ 1 }}"><img src="{{ url_for('static', filename='image/home/logo4.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <p>DeRa Studio</p></a>
+    </div> 
+    -->
   </div>
 </div><br>
 
+<p>{{ user.id }}</p>
 <footer class="container-fluid text-center">
   <b><p>TABLOIDE DIGITAL CT - VENHA FAZER PARTE</p><b>
 </footer>
