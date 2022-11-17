@@ -29,6 +29,9 @@ def create_app():
     from .api.usuarios import api
     from  .api.produtos import prod
     from  .api.negocios import estab
+    from  .api.servicos import serv
+    
+
     
 
     app.register_blueprint(views, url_prefix='/')
@@ -37,6 +40,7 @@ def create_app():
     app.register_blueprint(api, url_prefix='/' )
     app.register_blueprint(prod, url_prefix='/' )
     app.register_blueprint(estab, url_prefix='/' )
+    app.register_blueprint(serv, url_prefix='/' )
     
     
 

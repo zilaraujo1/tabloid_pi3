@@ -62,3 +62,17 @@ class Servicos(db.Model, UserMixin):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     estab_fk = db.Column(db.Integer, db.ForeignKey('estabelecimentos.id'))
 
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "tipo": self.tipo,
+                "descricao": self.descricao,
+                "valor": self.valor,
+                "horario_func": self.horario_func,
+                "foto": self.foto,
+                "fotob": self.fotob,
+                "fotoc": self.fotoc,
+                "fotod": self.fotod,
+                "date": self.date,
+                "estab_fk": self.estab_fk
+                }
