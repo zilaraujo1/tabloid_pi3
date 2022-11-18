@@ -34,7 +34,7 @@ def cria_servicos():
         serv = Servicos(tipo=body["tipo"],descricao=body["descricao"],valor=body["valor"],
         horario_func=body["horario_func"],foto=body["foto"],fotob=body["fotob"],
         fotoc=body["fotoc"],fotod=body["fotod"],estab_fk=body["estab_fk"])
-        
+
         db.session.add(serv)
         db.session.commit()
         return gera_response(201, "Serviço", serv.to_json(), "criado com sucesso")
@@ -64,7 +64,7 @@ def atualiza_servicos(id):
 #--------------------------DELETE SERVICOS-----------------------------------------------
 @serv.route('/api/servicos/<id>', methods=['DELETE'])
 def deleta_servicos(id):
-    serv_obj = Servicos.query.filter_by(id=id).first()  
+     
     return gera_response(400, "Serviço", {}, "Erro ao deletar") 
 
 
