@@ -39,8 +39,17 @@ def cria_servicos():
         print(e)
         return gera_response(400, "Serviço", {}, "Erro ao cadastrar") 
 
-    
+#--------------------------UPDATE SERVICOS(PUT)----------------------------------------------
+@serv.route('/api/servicos', methods=['PUT'])
+def atualiza_servicos():  
 
+
+        return gera_response(400, "Serviço", {}, "Erro ao atualizar") 
+
+#--------------------------DELETE SERVICOS-----------------------------------------------
+@serv.route('/api/servicos', methods=['DELETE'])
+def deleta_servicos():  
+        return gera_response(400, "Serviço", {}, "Erro ao deletar") 
 
 
 
