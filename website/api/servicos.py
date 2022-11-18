@@ -31,7 +31,10 @@ def cria_servicos():
     body = request.get_json()
    
     try:
-        serv = Servicos(tipo=body["tipo"],descricao=body["descricao"],valor=body["valor"],horario_func=body["horario_func"],foto=body["foto"],fotob=body["fotob"],fotoc=body["fotoc"],fotod=body["fotod"],estab_fk=body["estab_fk"])
+        serv = Servicos(tipo=body["tipo"],descricao=body["descricao"],valor=body["valor"],
+        horario_func=body["horario_func"],foto=body["foto"],fotob=body["fotob"],
+        fotoc=body["fotoc"],fotod=body["fotod"],estab_fk=body["estab_fk"])
+        
         db.session.add(serv)
         db.session.commit()
         return gera_response(201, "Serviço", serv.to_json(), "criado com sucesso")
@@ -40,16 +43,29 @@ def cria_servicos():
         return gera_response(400, "Serviço", {}, "Erro ao cadastrar") 
 
 #--------------------------UPDATE SERVICOS(PUT)----------------------------------------------
-@serv.route('/api/servicos', methods=['PUT'])
-def atualiza_servicos():  
+@serv.route('/api/servicos/<id>', methods=['PUT'])
+def atualiza_servicos(id):
+    body = request.get_json  
+     
+    try:
+        serv = Servicos(id=id, tipo=body["tipo"],descricao=body["descricao"],valor=body["valor"],
+        horario_func=body["horario_func"],foto=body["foto"],fotob=body["fotob"],
+        fotoc=body["fotoc"],fotod=body["fotod"],estab_fk=body["estab_fk"])
 
+        db.session.add(serv)
+        db.session.commit()
+        return gera_response(201, "Serviço", serv.to_json(), "criado com sucesso")
+    except Exception as e:
+        print(e)
+        return gera_response(400, "Serviço", {}, "Erro ao cadastrar") 
 
-        return gera_response(400, "Serviço", {}, "Erro ao atualizar") 
+    return gera_response(400, "Serviço", {}, "Erro ao atualizar") 
 
 #--------------------------DELETE SERVICOS-----------------------------------------------
-@serv.route('/api/servicos', methods=['DELETE'])
-def deleta_servicos():  
-        return gera_response(400, "Serviço", {}, "Erro ao deletar") 
+@serv.route('/api/servicos/<id>', methods=['DELETE'])
+def deleta_servicos(id):
+    serv_obj = Servicos.query.filter_by(id=id).first()  
+    return gera_response(400, "Serviço", {}, "Erro ao deletar") 
 
 
 
