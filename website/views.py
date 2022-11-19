@@ -150,101 +150,10 @@ def form(id):
     
     return render_template('form.html', dono=dono, user=current_user)
 
-##-----------Formulário de serviços -------------------------------------------------##
-@views.route('/form_servico/<id>', methods=['GET','POST'])
-def form_servico(id):
-<<<<<<< HEAD
-    serviço = Estabelecimentos.query.get(id)
-    
-    return render_template('form_servico.html', user=current_user)
-=======
-    dono = Estabelecimentos.query.get(id)
-    
-
-    if request.method == 'POST':
-        estab_fk = request.form.get('estab_fk')
-        tipo = request.form.get('tipo')
-        descricao = request.form.get('descricao')
-        valor = request.form.get('valor')
-        horario_func =request.form.get('horario_func')
-       
-        
-        file = request.files['foto']
-        fileb = request.files['fotob']
-        filec = request.files['fotoc']
-        filed = request.files['fotod']
-        # nomes das fotos
-        namefoto = file.filename
-        namefotob = fileb.filename
-        namefotoc = filec.filename
-        namefotod = filed.filename
-        # salva na pasta uploads/servicos
-        if file:
-            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
-            file.save(savePath)
-        if fileb:
-            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(fileb.filename))
-            fileb.save(savePath)
-        if filec:
-            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filec.filename))
-            filec.save(savePath)
-        if filed:
-            savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filed.filename))
-            filed.save(savePath)
-
-
-        # Criar as validações dos inputs aqui
-
-        new_item = Servicos( tipo=tipo, descricao=descricao, 
-        valor=valor,horario_func=horario_func, foto=namefoto, fotob=namefotob, fotoc=namefotoc,
-         fotod=namefotod, estab_fk=estab_fk
-        )
-
-
-        db.session.add(new_item)
-        db.session.commit()
-        flash('Produto salvo com sucesso', category='success')
-        return redirect(url_for('views.admin'))
-    
-    return render_template('form_servico.html', dono=dono, user=current_user)
->>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
-
-##-----------Update de produtos -------------------------------------------------##
-@views.route('/update', methods=['GET','POST'])
-def update():
-
-    return render_template('form.html', user=current_user)
-
-@views.route("/editar/<id>/")
-def editar(id):
-    
-    return render_template('editar.html', user = current_user)
 
 
 
 
-##-----------ROTA COMERCIO -------------------------------------------------##
-@views.route('/ateliedehlicias' ) #endpoints
-def ateliedehlicias ():
-    
-<<<<<<< HEAD
-    #comercios = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==19)
-
-    #dados_items = db.session.query(Items).filter(Items.estabelecimento_id==19)
-    return render_template("ateliedehlicias.html",user=current_user)
-
-##-----------ROTA COMERCIO -------------------------------------------------##
-@views.route ( '/emporioct' )
-def  emporioct ():
-    #mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==2)
-
-    #dados_items = db.session.query(Items).filter(Items.estabelecimento_id==20)
-    return  render_template ( "emporioct.html",user = current_user  )
-=======
-    mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
-
-    dados_items = db.session.query(Comercios_item).filter(Comercios_item.estab_fk==1)
-    return render_template("mercadoa.html", mercado=mercado , ofertas=dados_items, comercios=comercios, user=current_user)
 
 ##-----------RODA MERCADO -------------------------------------------------##
 @views.route ( '/mercadob' )
@@ -253,9 +162,7 @@ def  mercadob ():
 
     mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==1)
     return  render_template ( "mercadob.html",comercios=comercios,  ofertas=dados_items,  user = current_user  )
->>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
-
-##-----------ROTA MERCADO -------------------------------------------------##
+#-----------ROTA MERCADO -------------------------------------------------##
 @views.route( '/mercadoc' )
 def  mercadoc ():
      mercado = db.session.query(Estabelecimentos).filter(Estabelecimentos.id==21)
@@ -264,27 +171,14 @@ def  mercadoc ():
 
      return  render_template ( "mercadoc.html", comercios=comercios, ofertas=dados_items, user = current_user )
 
-<<<<<<< HEAD
 ##-----------RODA SERVIÇOS -------------------------------------------------##
 @views.route( '/esmalterialily' )
 def  esmalterialily ():
-=======
-##-----------ROTA SERVIÇOS -------------------------------------------------##
-@views.route( '/servicos' )
-def  servicos ():
->>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
-  
-     return  render_template ( "esmalterialily.html",  user = current_user )
+       return  render_template ( "esmalterialily.html",  user = current_user )
 
-<<<<<<< HEAD
 ##-----------RODA SERVIÇOS -------------------------------------------------##
 @views.route( '/stylushair' )
 def  stylushair ():
-=======
-##-----------ROTA SERVIÇOS -------------------------------------------------##
-@views.route( '/servico/<id>/' )
-def  servico (id):
->>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
   
      return  render_template ( "stylushair.html",  user = current_user )
 
