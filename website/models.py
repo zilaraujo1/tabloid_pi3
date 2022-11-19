@@ -4,60 +4,114 @@ from flask_login import UserMixin
 
 from sqlalchemy.sql import func
 
-class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
     
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150))
-    nome_mercado = db.Column(db.String(150))
+    cnpj = db.Column(db.String(150))
     password = db.Column(db.String(150))
     password = db.Column(db.String(150))
-    data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estabelecimento = db.relationship('Estabelecimentos')
+
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "email": self.email,
+                "cnpj": self.cnpj,
+                "password": self.password
+        
+                }
+    
 
 class Estabelecimentos(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150))
-    items = db.relationship('Items')
-
-class Endereco(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    id_Estabelecimento = db.Column(db.Integer, primary_key=True)
-    estado = db.Column(db.String(150))
-    cidade = db.Column(db.String(150))
     endereco = db.Column(db.String(150))
-    numero = db.Column(db.String(150))
+    telefone = db.Column(db.String)
+    hora_func = db.Column(db.String)
+    descricao = db.Column(db.Text)
+    foto = db.Column(db.Text)
+    fotob = db.Column(db.Text)
+    fotoc = db.Column(db.Text)
+    fotod = db.Column(db.Text)
+    user_fk = db.Column(db.Integer, db.ForeignKey("user.id"))
+    servicos = db.relationship('Comercios_item')
+    comercios_item = db.relationship('Servicos')
 
-class contato(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    id_Estabelecimento = db.Column(db.Integer, primary_key=True)
-    ddd = db.Column(db.String(150))
-    telefone = db.Column(db.String(150))
-    email = db.Column(db.String(150))
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "nome": self.nome,
+                "endereco": self.endereco,
+                "telefone": self.telefone,
+                "hora_func": self.hora_func,
+                "descricao": self.descricao,
+                "foto": self.foto,
+                "fotob": self.fotob,
+                "fotoc": self.fotoc,
+                "fotod": self.fotod,
+                
+                "user_fk": self.user_fk
+                }
 
-class Items(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    #nome_comercio = db.Column(db.String(150))
-    tipo_item = db.Column(db.String(150))
-    nome_item = db.Column(db.String(150))
-    marca_item = db.Column(db.String(150))
-    volume_tipo = db.Column(db.String(150))
-    volume = db.Column(db.String(150))
-    qtd_maxima = db.Column(db.String(150))
-    valor = db.Column(db.String(150))
-    data_fim_promocao = db.Column(db.String(150))
+
+
+
+class Comercios_item(db.Model, UserMixin):
+    item_id = db.Column(db.Integer, primary_key=True)
+    tipo = db.Column(db.String(150))
+    nome = db.Column(db.String(150))
+    marca = db.Column(db.String(150))
+    quantidade = db.Column(db.String(150))
+    peso = db.Column(db.String(150))
+    valor = db.Column(db.String(10))
+    fim_promo = db.Column(db.String(150))
     foto = db.Column(db.Text, nullable =False)
-    estabelecimento_id = db.Column(db.Integer, db.ForeignKey("estabelecimentos.id"))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estab_fk = db.Column(db.Integer, db.ForeignKey("estabelecimentos.id"))
     
+    def to_json(self):
+        return {
+                "item_id": self.item_id, 
+                "tipo": self.tipo,
+                "nome": self.nome,
+                "marca": self.marca,
+                "quantidade": self.quantidade,
+                "peso": self.peso,
+                "valor": self.valor,
+                "fim_promo": self.fim_promo,
+                "foto": self.foto,
+                "date": self.date,
+                "estab_fk": self.estab_fk
+                }
 
 
-class redes_sociais(db.Model, UserMixin):
+class Servicos(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    id_Contato = db.Column(db.Integer, primary_key=True)
-    facebook = db.Column(db.String(150))
-    instagram = db.Column(db.String(150))
-    whatsapp = db.Column(db.String(150))
-    twitter = db.Column(db.String(150))
+    tipo = db.Column(db.String)
+    descricao = db.Column(db.String(150))
+    valor = db.Column(db.String(150))
+    horario_func = db.Column(db.String(150))
+    foto = db.Column(db.Text)
+    fotob = db.Column(db.Text)
+    fotoc = db.Column(db.Text)
+    fotod = db.Column(db.Text)
+   
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    estab_fk = db.Column(db.Integer, db.ForeignKey('estabelecimentos.id'))
+
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "tipo": self.tipo,
+                "descricao": self.descricao,
+                "valor": self.valor,
+                "horario_func": self.horario_func,
+                "foto": self.foto,
+                "fotob": self.fotob,
+                "fotoc": self.fotoc,
+                "fotod": self.fotod,
+                "date": self.date,
+                "estab_fk": self.estab_fk
+                }

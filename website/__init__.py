@@ -7,10 +7,10 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 DB_NAME = "database.db" # para o sqlite
-DB_POSTGRES = "dbqhkl5cujq3q7"
-USER = 'ovybufamtcbrav'
-PASSWORD = 'd3601440e22f02078db17ef7c5fdd2cbaffccabcc9b70de2fe5916a4bc3a1544'
-HOST = 'ec2-18-204-142-254.compute-1.amazonaws.com'
+#DB_POSTGRES = ""
+#USER = ''
+#PASSWORD = ''
+#HOST = ''
 
 def create_app():
     app = Flask(__name__)
@@ -18,23 +18,34 @@ def create_app():
     app.config['SECRET_KEY'] = 'grhteyeuwhhs fgdhjajakuww'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
  #Postgres
-    app.config['SQLALCHEMY_DATABASE_URI']=f'postgresql://{USER}:{PASSWORD}@{HOST}:5432/{DB_POSTGRES}'
+ #   app.config['SQLALCHEMY_DATABASE_URI']=f'postgresql://{USER}:{PASSWORD}@{HOST}:5432/{DB_POSTGRES}'
     db.init_app(app)
 
 
 
     from .views import views
     from .auth import auth
-    from .api import api
+    from .home import ind
+    from .api.usuarios import api
+    from  .api.produtos import prod
+    from  .api.negocios import estab
+    from  .api.servicos import serv
+    
+
     
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(ind, url_prefix='/')
     app.register_blueprint(api, url_prefix='/' )
+    app.register_blueprint(prod, url_prefix='/' )
+    app.register_blueprint(estab, url_prefix='/' )
+    app.register_blueprint(serv, url_prefix='/' )
+    
     
 
-    from .models import User, Note, Items
-    create_database(app)
+    from .models import User, Comercios_item, Estabelecimentos, Servicos
+  #  create_database(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -43,12 +54,16 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    
+    with app.app_context():
+        db.create_all()
+
         
     return app
-def create_database(app):
+'''def create_database(app):
     db.create_all(app=app)
     if not path.exists('website/' + DB_NAME):
        db.create_all(app=app)
        print('Created Database')
 
-    
+   ''' 

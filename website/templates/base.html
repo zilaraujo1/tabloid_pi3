@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>HomePageTabloide</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css')}}">
+  
     <!--myScript-->
     <script type="text/javascript" src="{{ url_for('static', filename='script/myscript.js')}}"></script>
    <!--MyStyle-->
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css')}}">
+   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
     
+<<<<<<< HEAD
     <title>{% block title %}Home{% endblock %}</title>
 
 </head>
@@ -81,7 +85,79 @@
                     
            {% endif %}
         </div>
+=======
+  
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <b><a class="navbar-brand" href="/">TABLOIDE_CT</a><b>
     </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">HOME</a></li>
+        
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">COMÉRCIOS<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">ALIMENTOS</a></li>
+          <li><a href="#">ARTES E DECORAÇÃO</a></li>
+          <li><a href="#">ELETRÔNICOS</a></li>
+          <li><a href="#">DIVERSOS</a></li>
+        </ul>
+    </li>
+
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/servicos">SERVIÇOS<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/beleza">BELEZA</a></li>
+          <li><a href="#">CONSTRUÇÃO</a></li>
+          <li><a href="#">LIMPEZA</a></li>
+          <li><a href="#">DIVERSOS</a></li>
+        </ul>
+      </li>
+        
+	<button type="button" class="btn navbar-btn" data-toggle="modal" data-target="#myModal">QUEM SOMOS</button>
+
+  	<!-- Modal -->
+  	<div class="modal fade" id="myModal" role="dialog">
+   	 <div class="modal-dialog">
+    
+     	 <!-- Modal content-->
+      	<div class="modal-content">
+      	  <div class="modal-header">
+         	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+         	 <h4 class="modal-title">TABLOIDE DIGITAL CT</h4>
+      	 </div>
+       	 <div class="modal-body">
+        	  <p>Esse site faz parte do Projeto Integrador III dos cursos de Engenharia de Computação, Bacharelado em Ciência de Dados e Tecnologia da Universidade Virtual do Estado de São Paulo. Em formato de Tabloide Digital estaremos divulgando produtos de comércios e serviços do bairro. </p>
+        	</div>
+       	 <div class="modal-footer">
+        	  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	</div>
+      	</div>      
+   	 </div>
+  	</div>  
+	
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/cadastro"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+      </ul>
+>>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
+    </div>
+  </div>
 </nav>
 <!-- Messagens de erro ou sucesso-->
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -109,8 +185,10 @@
 
 
 <!--Conteúdo das páginas -->
-<main>
+    <div class="container">
+        {% block content %}
 
+<<<<<<< HEAD
     {% block content %}
     {% endblock %}
     
@@ -118,7 +196,21 @@
 </main>
     
     
+=======
+
+
+
+        {% endblock %}
+    <footer class="container-fluid text-center">
+      <b><p>TABLOIDE DIGITAL CT - VENHA FAZER PARTE</p><b>
+    </footer>
+    </body>
+    </html>
+>>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
     
+
+</head>
+   
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/cdd0c2c5dc.js" crossorigin="anonymous"></script>
     <!--Bootstrap-->

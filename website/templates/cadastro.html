@@ -2,7 +2,7 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-
+<div class="container">
 <form action="" method="POST">
     <h3> Cadastre-se</h3>
     <div class="form-group">
@@ -13,10 +13,12 @@
     </div>
     <div class="form-group">
         <div class="col-md-6 offset-md-3">
-        <label for="mercado">Comércio/Serviço</label>
-        <input type="text" class="form-control" id="nome_mercado" name="nome_mercado" placeholder="Digite o nome da empresa">  
+        <label for="empresa">CNPJ</label>
+        <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o cnpj da empresa">  
+        </div>
     </div>
-    </div>
+   
+ 
     <div class="form-group">
         <div class="col-md-6 offset-md-3">
         <label for="password1">Password</label>
@@ -35,7 +37,7 @@
     </div>
 </form>
 
-
+</div>
 
 
 {% endblock %}

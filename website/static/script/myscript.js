@@ -7,22 +7,22 @@ function valida_form (){
         document.getElementById("estabelecimento").focus();
         return false;
     }
-    if(document.getElementById("tipo_item").value == ""){
+    if(document.getElementById("tipo").value == ""){
         alert('Por favor, preencha o campo tipo do item');
         document.getElementById("tipo_item").focus();
         return false;
     }
-    if(document.getElementById("nome_item").value == ""){
+    if(document.getElementById("nome").value == ""){
         alert('Por favor, preencha o campo nome do produto');
         document.getElementById("nome_item").focus();
         return false;
     }
-    if(document.getElementById("marca_item").value == ""){
+    if(document.getElementById("marca").value == ""){
         alert('Por favor, preencha o campo marca');
         document.getElementById("marca_item").focus();
         return false;
     }
-    if(document.getElementById("volume_tipo").value == ""){
+    if(document.getElementById("quantidade").value == ""){
         alert('Por favor, preencha o campo tipo da quantidade');
         document.getElementById("volume_tipo").focus();
         return false;
@@ -50,6 +50,91 @@ function valida_form (){
     if(document.getElementById("data_fim_promocao").value == ""){
         alert('Por favor, preencha o campo data final da promoção');
         document.getElementById("data_fim_promocao").focus();
+        return false;
+    }
+}
+
+
+
+
+function valida_estab(){
+    if(document.getElementById("nome").value == ""){
+        alert('Por favor, preencha o nome do estabeleimento');
+        document.getElementById("nome").focus();
+        return false;
+    }
+    if(document.getElementById("endereco").value == ""){
+        alert('Por favor, preencha com endereço do estabelecimento');
+        document.getElementById("endereco").focus();
+        return false;
+    }
+    if(document.getElementById("descricao").value == ""){
+        alert('Por favor, preencha com uma descrição breve do establecimento');
+        document.getElementById("descricao").focus();
+        return false;
+    }
+    if(document.getElementById("telefone").value == ""){
+        alert('Por favor, preencha com um contato');
+        document.getElementById("telefone").focus();
+        return false;
+    }
+    if(document.getElementById("foto").value == ""){
+        alert('Por favor, faça upload da foto da marca/logo fdo estabelicimento');
+        document.getElementById("foto").focus();
+        return false;
+    }
+    if(document.getElementById("fotob").value == ""){
+        alert('Por favor, faça upload da foto 2 do estabelecimento');
+        document.getElementById("fotob").focus();
+        return false;
+    }
+    if(document.getElementById("fotoc").value == ""){
+        alert('Por favor, faça upload da foto 3 do estabelecimento');
+        document.getElementById("fotoc").focus();
+        return false;
+    }
+    if(document.getElementById("fotod").value == ""){
+        alert('Por favor, faça upload da foto 2 do estabelecimento');
+        document.getElementById("fotod").focus();
+        return false;
+    }
+    
+}
+
+function valida_serv(){
+    if(document.getElementById("tipo").value == ""){
+        alert('Por favor, escolha o tipo de serviço');
+        document.getElementById("tipo").focus();
+        return false;
+    }
+    if(document.getElementById("descricao").value == ""){
+        alert('Por favor, coloque uma legenda no tipo de serviço');
+        document.getElementById("descricao").focus();
+        return false;
+    }
+    if(document.getElementById("valor").value == ""){
+        alert('Por favor, preencha o valor do serviço');
+        document.getElementById("valor").focus();
+        return false;
+    }
+    if(document.getElementById("foto").value == ""){
+        alert('Por favor, faça o uplod da foto 1 do serviço');
+        document.getElementById("foto").focus();
+        return false;
+    }
+    if(document.getElementById("fotob").value == ""){
+        alert('Por favor, faça o uplod da foto 2 do serviço');
+        document.getElementById("fotob").focus();
+        return false;
+    }
+    if(document.getElementById("fotoc").value == ""){
+        alert('Por favor, faça o uplod da foto 3 do serviço');
+        document.getElementById("fotoc").focus();
+        return false;
+    }
+    if(document.getElementById("fotod").value == ""){
+        alert('Por favor, faça o uplod da foto 4 do serviço');
+        document.getElementById("fotod").focus();
         return false;
     }
 }

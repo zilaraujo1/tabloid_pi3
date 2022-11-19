@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 *{
     margin:0%;
     padding:0%;
@@ -53,9 +54,25 @@ h4{
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   margin:200px;
 
-  
+=======
+/* Adicione uma cor de fundo cinza e algum preenchimento ao rodapé */
+footer {
+  background-color: #FAEBD7;
+  padding: 25px;
 }
 
+.carousel-inner img {
+  width: 25%; /* Set width to 25% */
+  min-height: 200px;
+}
+p {
+>>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
+  
+  font-size: 1.2em;
+  line-height: 32px;
+}
+
+<<<<<<< HEAD
 h5{
   text-align-last:right;
   margin-bottom: 2px;
@@ -139,3 +156,11 @@ p{
 
 
 
+=======
+/* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */
+@media (max-width: 600px) {
+  .carousel-caption {
+    display: none; 
+  }
+}
+>>>>>>> d8033b22bfe3088f9edf327acd514a84995850e8
