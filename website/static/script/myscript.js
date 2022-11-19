@@ -100,3 +100,41 @@ function valida_estab(){
     }
     
 }
+
+function valida_serv(){
+    if(document.getElementById("tipo").value == ""){
+        alert('Por favor, escolha o tipo de serviço');
+        document.getElementById("tipo").focus();
+        return false;
+    }
+    if(document.getElementById("descricao").value == ""){
+        alert('Por favor, coloque uma legenda no tipo de serviço');
+        document.getElementById("descricao").focus();
+        return false;
+    }
+    if(document.getElementById("valor").value == ""){
+        alert('Por favor, preencha o valor do serviço');
+        document.getElementById("valor").focus();
+        return false;
+    }
+    if(document.getElementById("foto").value == ""){
+        alert('Por favor, faça o uplod da foto 1 do serviço');
+        document.getElementById("foto").focus();
+        return false;
+    }
+    if(document.getElementById("fotob").value == ""){
+        alert('Por favor, faça o uplod da foto 2 do serviço');
+        document.getElementById("fotob").focus();
+        return false;
+    }
+    if(document.getElementById("fotoc").value == ""){
+        alert('Por favor, faça o uplod da foto 3 do serviço');
+        document.getElementById("fotoc").focus();
+        return false;
+    }
+    if(document.getElementById("fotod").value == ""){
+        alert('Por favor, faça o uplod da foto 4 do serviço');
+        document.getElementById("fotod").focus();
+        return false;
+    }
+}
