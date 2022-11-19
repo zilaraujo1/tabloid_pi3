@@ -26,7 +26,7 @@ def create_app():
     from .views import views
     from .auth import auth
     from .home import ind
-   # from .api.usuarios import api
+    from .api.usuarios import api
     #from  .api.produtos import prod
     #from  .api.negocios import estab
     from  .api.servicos import serv
@@ -37,7 +37,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(ind, url_prefix='/')
-   # app.register_blueprint(api, url_prefix='/' )
+    app.register_blueprint(api, url_prefix='/' )
     #app.register_blueprint(prod, url_prefix='/' )
     #app.register_blueprint(estab, url_prefix='/' )
     app.register_blueprint(serv, url_prefix='/' )

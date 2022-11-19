@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
                 "id": self.id, 
                 "email": self.email,
                 "cnpj": self.cnpj,
-                "date": self.date
+                "password": self.password
         
                 }
     
