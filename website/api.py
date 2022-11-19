@@ -2,10 +2,10 @@ from unicodedata import category
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for, abort
 from flask_login import login_required, current_user
 
-#from models.tables import Estabelecimento 
-#from .models import User
-#from .models import Items
-#from .models import Estabelecimentos
+ addfrom models.tables import Estabelecimento 
+from .models import User
+from .models import Items
+from .models import Estabelecimentos
 
 api = Blueprint('api', __name__)
 
