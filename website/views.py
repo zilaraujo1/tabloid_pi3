@@ -138,7 +138,7 @@ def form(id):
 
         new_item = Comercios_item( tipo=tipo, nome=nome, 
         marca=marca, quantidade = quantidade,
-        peso= peso, valor=valor,foto=namefoto,#fotob=namefotob, fotoc=namefotoc,
+        peso= peso, valor=valor,foto=namefoto,
         fim_promo=fim_promo, estab_fk=estab_fk
         )
 
