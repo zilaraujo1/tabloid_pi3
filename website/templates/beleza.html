@@ -54,28 +54,19 @@
   <h3>{{ serv.descricao }}</h3><br>
   <div class="row">
     <div class="col-sm-4">
-      <img src="../static/uploads/servicos/{{ serv.fotod }}" class="img-responsive" style="width:100%" alt="Image">
-      
+      <img src="../static/uploads/servicos/{{ serv.foto }}" class="img-responsive" style="width:100%" alt="Image">
+      <p>{{ serv.tipo }}</p>
     </div>
     <div class="col-sm-4"> 
-      <img src="../static/uploads/servicos/{{ serv.foto }}" class="img-responsive" style="width:100%" alt="image">
-        
+      <img src="../static/uploads/servicos/{{ serv.fotob }}" class="img-responsive" style="width:100%" alt="image">
+      <p>{{ serv.tipo }}</p>    
+    
+       
     </div>
     <div class="col-sm-4">
-      <div class="well">
-       <p>Simples</p>
-      </div>
-      <div class="well">
-       <p>Desenhada</p>
-      </div>
-      <div class="well">
-       <p>Gel</p>
-      </div>
-       <div class="well">
-       <p>Outros</p>
-      </div>
+      <p>{{ dono.descricao }}</p>
+     
     </div>
-  </div>
 </div><br>
 {% endblock %}
 <footer class="container-fluid text-center">
