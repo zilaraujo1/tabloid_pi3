@@ -1,4 +1,4 @@
-from unicodedata import category
+gitfrom unicodedata import category
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for, abort
 from flask_login import login_required, current_user
 
