@@ -14,6 +14,16 @@ class User(db.Model, UserMixin):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     estabelecimento = db.relationship('Estabelecimentos')
 
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "email": self.email,
+                "cnpj": self.cnpj,
+                "date": self.date
+        
+                }
+    
+
 class Estabelecimentos(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150))
@@ -29,6 +39,21 @@ class Estabelecimentos(db.Model, UserMixin):
     servicos = db.relationship('Comercios_item')
     comercios_item = db.relationship('Servicos')
 
+    def to_json(self):
+        return {
+                "id": self.id, 
+                "nome": self.nome,
+                "endereco": self.endereco,
+                "telefone": self.telefone,
+                "hora_func": self.hora_func,
+                "descricao": self.descricao,
+                "foto": self.foto,
+                "fotob": self.fotob,
+                "fotoc": self.fotoc,
+                "fotod": self.fotod,
+                
+                "user_fk": self.user_fk
+                }
 
 
 
@@ -46,6 +71,20 @@ class Comercios_item(db.Model, UserMixin):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     estab_fk = db.Column(db.Integer, db.ForeignKey("estabelecimentos.id"))
     
+    def to_json(self):
+        return {
+                "item_id": self.item_id, 
+                "tipo": self.tipo,
+                "nome": self.nome,
+                "marca": self.marca,
+                "quantidade": self.quantidade,
+                "peso": self.peso,
+                "valor": self.valor,
+                "fim_promo": self.fim_promo,
+                "foto": self.foto,
+                "date": self.date,
+                "estab_fk": self.estab_fk
+                }
 
 
 class Servicos(db.Model, UserMixin):
