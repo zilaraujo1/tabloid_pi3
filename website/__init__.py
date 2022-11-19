@@ -26,9 +26,9 @@ def create_app():
     from .views import views
     from .auth import auth
     from .home import ind
-   # from .api.usuarios import api
+    from .api.usuarios import api
     #from  .api.produtos import prod
-    #from  .api.negocios import estab
+    from  .api.negocios import estab
     from  .api.servicos import serv
     
 
@@ -37,15 +37,15 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(ind, url_prefix='/')
-   # app.register_blueprint(api, url_prefix='/' )
+    app.register_blueprint(api, url_prefix='/' )
     #app.register_blueprint(prod, url_prefix='/' )
-    #app.register_blueprint(estab, url_prefix='/' )
+    app.register_blueprint(estab, url_prefix='/' )
     app.register_blueprint(serv, url_prefix='/' )
     
     
 
     from .models import User, Comercios_item, Estabelecimentos, Servicos
-    create_database(app)
+  #  create_database(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -54,12 +54,16 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    
+    with app.app_context():
+        db.create_all()
+
         
     return app
-def create_database(app):
+'''def create_database(app):
     db.create_all(app=app)
     if not path.exists('website/' + DB_NAME):
        db.create_all(app=app)
        print('Created Database')
 
-    
+   ''' 
