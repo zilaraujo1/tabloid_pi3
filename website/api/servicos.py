@@ -39,33 +39,56 @@ def cria_servicos():
         db.session.commit()
         return gera_response(201, "Serviço", serv.to_json(), "criado com sucesso")
     except Exception as e:
-        print(e)
+        print('Erro', e)
         return gera_response(400, "Serviço", {}, "Erro ao cadastrar") 
 
 #--------------------------UPDATE SERVICOS(PUT)----------------------------------------------
 @serv.route('/api/servicos/<id>', methods=['PUT'])
 def atualiza_servicos(id):
-    body = request.get_json  
+    # pega o serviço
+    serv_obj = Servicos.query.filter_by(id=id).first()
+    # pega as modificações
+    body = request.get_json()  
      
     try:
-        serv = Servicos(id=id, tipo=body["tipo"],descricao=body["descricao"],valor=body["valor"],
-        horario_func=body["horario_func"],foto=body["foto"],fotob=body["fotob"],
-        fotoc=body["fotoc"],fotod=body["fotod"],estab_fk=body["estab_fk"])
+        if('tipo' in body):
+            serv_obj.tipo = body["tipo"]
+        if('descricao' in body):
+            serv_obj.descricao = body["descricao"]
+        if('valor' in body):
+            serv_obj.valor = body["valor"]
+        if('horario_func' in body):
+            serv_obj.horario_func = body["horario_func"]
+        if('foto' in body):
+            serv_obj.foto = body["foto"]
+        if('fotob' in body):
+            serv_obj.fotob = body["fotob"]
+        if('fotoc' in body):
+            serv_obj.fotoc = body["fotoc"]
+        if('fotod' in body):
+            serv_obj.fotod = body["fotod"]
 
-        db.session.add(serv)
+
+        db.session.add(serv_obj)
         db.session.commit()
-        return gera_response(201, "Serviço", serv.to_json(), "criado com sucesso")
+        return gera_response(200, "Serviço", serv_obj.to_json(), "atualizado com sucesso")
     except Exception as e:
-        print(e)
-        return gera_response(400, "Serviço", {}, "Erro ao cadastrar") 
-
-    return gera_response(400, "Serviço", {}, "Erro ao atualizar") 
+        print("ERRO",e)
+        return gera_response(400, "Serviço", {}, "Erro ao atualizar") 
 
 #--------------------------DELETE SERVICOS-----------------------------------------------
 @serv.route('/api/servicos/<id>', methods=['DELETE'])
 def deleta_servicos(id):
-     
-    return gera_response(400, "Serviço", {}, "Erro ao deletar") 
+     # pega o serviço
+    serv_obj = Servicos.query.filter_by(id=id).first()
+    
+    try:
+        db.session.delete(serv_obj)
+        db.session.commit()
+        return gera_response(200, "Serviço", serv_obj.to_json(), "Deletado com sucesso")
+    except Exception as e:
+        print("ERRO",e)
+        return gera_response(400, "Serviço", {}, "Erro ao deletar") 
 
 
 
