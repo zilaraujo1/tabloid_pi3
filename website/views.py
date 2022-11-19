@@ -173,15 +173,17 @@ def form_servico(id):
         namefotob = fileb.filename
         namefotoc = filec.filename
         namefotod = filed.filename
+        # salva na pasta uploads/servicos
         if file:
-        
-            # salva na pasta uploads/servicos
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(file.filename))
             file.save(savePath)
+        if fileb:
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(fileb.filename))
             fileb.save(savePath)
+        if filec:
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filec.filename))
             filec.save(savePath)
+        if filed:
             savePath = os.path.join(UPLOAD_FOLDERB, secure_filename(filed.filename))
             filed.save(savePath)
 
