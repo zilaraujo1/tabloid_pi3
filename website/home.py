@@ -36,14 +36,13 @@ def servicos(id):
     dono = Estabelecimentos.query.get(id)
     estab = db.session.query(Servicos).filter(Servicos.estab_fk==id)
 
-    if  not dono or not estab :
-        flash("Não há nenhum serviço cadastrado ainda", category="error")
-        return redirect('/')
-
-    else:
-        for result in estab:
-            
-
-            serv = result
-    print(dono.id)
+    serv = 0
+  
+    for result in estab:
+        serv = result
+        if serv == 0:
+            flash("Cadastre", category="error")
+            return render_template("form_servico/<id>",  user=current_user)
+        
+    
     return render_template("beleza.html",dono=dono, serv=serv, user=current_user)

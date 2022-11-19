@@ -72,15 +72,18 @@ def admin():
         namefotoc = filec.filename
         namefotod = filed.filename
         
-        
-        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(file.filename))
-        file.save(savePath)
-        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(fileb.filename))
-        fileb.save(savePath)
-        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filec.filename))
-        filec.save(savePath)
-        savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filed.filename))
-        filed.save(savePath)
+        if file:
+            savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(file.filename))
+            file.save(savePath)
+        if fileb:
+            savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(fileb.filename))
+            fileb.save(savePath)
+        if filec:
+            savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filec.filename))
+            filec.save(savePath)
+        if filed:
+            savePath = os.path.join(UPLOAD_FOLDERC, secure_filename(filed.filename))
+            filed.save(savePath)
 
         
 
