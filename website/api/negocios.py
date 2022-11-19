@@ -1,121 +1,106 @@
 from unicodedata import category
-from flask import Blueprint, request, jsonify, url_for
+from flask import Blueprint, request, jsonify, url_for, Response, json
 from flask_login import login_required, current_user
+from ..models import Estabelecimentos
 
-from ..mysql import mydb
+from ..import db
 
-estab = Blueprint('comercios', __name__)
+estab = Blueprint('negocios', __name__)
 
 
 #--------------------------GET ESTABELECIMENTOS-----------------------------------------------
-@estab.route('/api/empresas', methods=['GET'])
-def empresa():
-    try:
-        cursor = mydb.cursor()
-        sql = "SELECT * FROM estabelecimentos"
-        cursor.execute(sql)
-        item = cursor.fetchall()
-       
-       # print(item)
-        itemList = list()
-        for items in item:
-              itemList.append(
-                 {
-                    "id": items[0],
-                    "nome":items[1],
-                    "endereço": items[2],
-                    "telefone": items[3],
-                    "horário de funcionamento": items[4],
-                    "descrição": items[5],
-                    "imagem": items[6],
-                    "gerente/dono": items[7],
-                 
-                    
-                }
-              )
-        
+@estab.route('/api/estabelecimentos', methods=['GET'])
+def estabelecimento():
+    estab_obj = Estabelecimentos.query.all()
+    estab_json = [estab.to_json() for estab in estab_obj]
+    #print(serv_json)
+    return gera_response(200, "estabelecimento", estab_json, "ok")
 
-            
-        return jsonify({
-            'mensagem' : 'Lista de Itens',
-            'dados': itemList
-            
-            })
-    except Exception as ex:
-        return jsonify({'menssagem': "ERRO: dados não existe!"})
 
+#--------------------------GET ESTABELECIMENTOS ID-----------------------------------------------
+@estab.route('/api/estabelecimentos/<id>', methods=['GET'])
+def estabelecimento_id(id):
+    estab_obj = Estabelecimentos.query.filter_by(id=id).first()
+    estab_json = estab_obj.to_json()
+
+    return gera_response(200, "estabelecimento", estab_json)
+
+#--------------------------POST ESTABELECIMENTOS-----------------------------------------------
+@estab.route('/api/estabelecimentos', methods=['POST'])
+def cria_estabelecimento():
+    body = request.get_json()
    
-    
-#-------------------------------GET ITEMS ID--------------------------------------------------
-
-@estab.route('/api/empresas/<int:id>', methods=['GET'])
-def obter_empresa_por_id(id):
     try:
-        cursor = mydb.cursor()
+        estab = Estabelecimentos(nome=body["nome"],endereco=body["endereco"],
+        telefone=body["telefone"], hora_func=body["hora_func"], descricao=body["descricao"],
+        foto=body["foto"], fotob=body["fotob"], fotoc=body["fotoc"], fotod=body["fotod"],
+        user_fk=body["user_fk"])
 
-        sql = "SELECT I.id, I.nome, I.endereco, I.telefone, I.hora_func, I.descricao, I.imagem, E.nome FROM estabelecimentos AS I INNER JOIN usuario AS E on E.id = I.user_fk WHERE id = '{0}' ".format(id)
-        cursor.execute(sql)
-    
-        item = cursor.fetchone()
-        
-        dados = {'id':item[0],'nome':item[1], 'endereço': item[2], 'telefone': item[3], 'horário de funcionamento': item[4], 'descrição': item[5], 'foto': item[6],  'gerente/dono': item[7]}
-        return jsonify(dados)
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
+        db.session.add(estab)
+        db.session.commit()
+        return gera_response(201, "estabelecimento", estab.to_json(), "criado com sucesso")
+    except Exception as e:
+        print('Erro', e)
+        return gera_response(400, "estabelecimento", {}, "Erro ao cadastrar") 
 
-#-------------------------------POST ITEM--------------------------------------------------
-@estab.route('/api/produtos', methods=['POST'])
-
-def incluir_item():
+#--------------------------UPDATE ESTABELECIMENTOS(PUT)----------------------------------------------
+@estab.route('/api/estabelecimentos/<id>', methods=['PUT'])
+def atualiza_estbelecimento(id):
+    # pega o serviço
+    estab_obj = Estabelecimentos.query.filter_by(id=id).first()
+    # pega as modificações
+    body = request.get_json()  
+     
     try:
-        item = request.json
-        #print(item)
-        cursor = mydb.cursor()
-        sql ="""INSERT INTO comercios_item (item_id, tipo,nome, marca, quantidade, peso, valor, fim_promo, foto, data, estab_fk) 
-        VALUES ({0},'{1}','{2}','{3}','{4}', '{5}','{6}','{7}','{8}','{9}',{10})""".format(item['item'],item['tipo'],item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'],item['fim_promo'], item['foto'], item['data'], item['comercio'])
+        if('nome' in body):
+            estab_obj.nome = body["nome"]
+        if('endereco' in body):
+            estab_obj.endereco = body["endereco"]
+        if('telefone' in body):
+            estab_obj.telefone = body["telefone"]
+        if('hora_func' in body):
+            estab_obj.hora_func = body["hora_func"]
+        if('descricao' in body):
+            estab_obj.descricao = body["descricao"]
+        if('foto' in body):
+            estab_obj.foto = body["foto"]
+        if('fotob' in body):
+            estab_obj.fotob = body["fotob"]
+        if('fotoc' in body):
+            estab_obj.fotoc = body["fotoc"]
+        if('fotod' in body):
+            estab_obj.fotod = body["fotod"]
         
-        cursor.execute(sql)
+       
+
+        db.session.add(estab_obj)
+        db.session.commit()
+        return gera_response(200, "estabelecimento", estab_obj.to_json(), "atualizado com sucesso")
+    except Exception as e:
+        print("ERRO",e)
+        return gera_response(400, "estabelecimento", {}, "Erro ao atualizar") 
+
+#--------------------------DELETE ESTABELECIMENTOS-----------------------------------------------
+@estab.route('/api/estabelecimentos/<id>', methods=['DELETE'])
+def deleta_estabelecimento(id):
+     # pega o serviço
+    estab_obj = Estabelecimentos.query.filter_by(id=id).first()
     
-        mydb.commit()
-
-        
-        return jsonify(
-            mensagem="Item cadastrado com sucesso",
-        )
-    except Exception as ex:
-        return jsonify({'menssagem': "Error"})
-
-#--------------------------DELETE ITEMS-----------------------------------------------
-@estab.route('/api/produtos/<int:id>', methods=['DELETE'])
-def deletar_usuario(id):
     try:
-        cursor = mydb.cursor()
+        db.session.delete(estab_obj)
+        db.session.commit()
+        return gera_response(200, "estabelecimento", estab_obj.to_json(), "Deletado com sucesso")
+    except Exception as e:
+        print("ERRO",e)
+        return gera_response(400, "estabelecimento", {}, "Erro ao deletar") 
 
-        sql = "DELETE FROM comercios_item WHERE item_id = '{0}' ".format(id)
-        cursor.execute(sql)
-    
-        mydb.commit()
-        
-        return jsonify({'menssagem': "Registro deletado com sucesso!"})
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
 
-#------------------------UPDATE-----------------------------------------------------
-@estab.route('/api/produtos/<int:id>', methods=['PUT'])
-def atualizar_produto(id):
-    try:
-        item = request.json
-        print(item)
-        cursor = mydb.cursor()
 
-        sql = """UPDATE  comercios_item SET tipo='{0}', nome='{1}', marca ='{2}', quantidade ='{3}', peso ='{4}', valor = '{5}', fim_promo = '{6}', foto = '{7}', data = '{8}', estab_fk = {9} 
-        WHERE item_id ={10}""".format(item['tipo'], item['nome'], item['marca'], item['qtde'], item['peso'], item['valor'], item['fim promo'], item['foto'], item['comercio'], id)
-        
-        cursor.execute(sql)
-    
-        mydb.commit()
-        
-        return jsonify({'menssagem': "Registro atualizado com sucesso!"})
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: atualização não realizada!"})
-#-----------------------------------------------------------------------------------
+#--------------------------GERA RESPOSTA-------------------------------------
+def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
+    body = {}
+    body[nome_do_conteudo] = conteudo
+
+    if(mensagem):
+        body["mensagem"] = mensagem
+    return Response(json.dumps(body), status=status, mimetype="application/json")

@@ -1,107 +1,90 @@
 from unicodedata import category
-from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for, abort
+from flask import Blueprint, request, jsonify, url_for, Response, json
 from flask_login import login_required, current_user
+from ..models import User
 
-
-
-from ..mysql import mydb
+from ..import db
 
 api = Blueprint('usuarios', __name__)
 
-#---------------------------USUARIOS GET-------------------------------------------------------
+
+#--------------------------GET USUARIOS-----------------------------------------------
 @api.route('/api/usuarios', methods=['GET'])
-def getUsuario():
-    try:
-        cursor = mydb.cursor()
-        sql = "SELECT * FROM usuario"
-        cursor.execute(sql)
-
-        users = cursor.fetchall()
-        userList = list()
-        for usuario in users:
-            userList.append(
-                {
-                'id': usuario[0],
-                'nome': usuario[1],
-                'cnpj': usuario[2],
-                'email': usuario[3],
-                'telefone': usuario[4]
+def usuarios():
+    user_obj = User.query.all()
+    user_json = [user.to_json() for user in user_obj]
+    #print(serv_json)
+    return gera_response(200, "Usuarios", user_json, "ok")
 
 
-                }
-            )
-        return jsonify(
-            mensagem = 'Lista de Usuários',
-            dados= userList
-        )
-    except Exception as ex:
-        return jsonify({'menssagem': "ERRO: dados não existe!"})
+#--------------------------GET USUARIOS ID-----------------------------------------------
+@api.route('/api/usuarios/<id>', methods=['GET'])
+def usuarios_id(id):
+    user_obj = User.query.filter_by(id=id).first()
+    user_json = user_obj.to_json()
 
+    return gera_response(200, "Usuarios", user_json)
 
-#---------------------------USUARIOS ID--------------------------------------------------------
-@api.route('/api/usuarios/<int:id>', methods=['GET'])
-def obter_usuario_por_id(id):
-    try:
-        cursor = mydb.cursor()
-
-        sql = "SELECT * FROM usuario WHERE id = '{0}' ".format(id)
-        cursor.execute(sql)
-    
-        user = cursor.fetchone()
-        
-        dados = {'id':user[0], 'nome':user[1],'cpf':user[2], 'email':user[3], 'telefone':user[4] }
-        return jsonify(dados)
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
-
-#-------------------------POST------------------------------------------------
+#--------------------------POST USUARIOS-----------------------------------------------
 @api.route('/api/usuarios', methods=['POST'])
-def incluir_usuario():
+def cria_usuarios():
+    body = request.get_json()
+   
     try:
-        user = request.json
-        cursor = mydb.cursor()
-        sql ="""INSERT INTO usuario (id,nome,cnpj, email, telefone) VALUES({0},'{1}','{2}','{3}','{4}')""".format(user['id'],user['nome'], user['cnpj'], user['email'], user['telefone'])
-        cursor.execute(sql)
-        mydb.commit()
+        user = User(email=body["email"],cnpj=body["cnpj"],password=body["password"])
 
-        return jsonify(
-            mensagem="Usuário cadastrado com sucesso",
-        )
-    except Exception as ex:
-        return jsonify({'menssagem': "Error"})
-#-----------------------------------------------------------------------------------
+        db.session.add(user)
+        db.session.commit()
+        return gera_response(201, "Usuarios", user.to_json(), "criado com sucesso")
+    except Exception as e:
+        print('Erro', e)
+        return gera_response(400, "Usuarios", {}, "Erro ao cadastrar") 
 
-
-#----------------------DELETE------------------------------------------------------
-@api.route('/api/usuarios/<int:id>', methods=['DELETE'])
-def deletar_usuario(id):
-    try:
-        cursor = mydb.cursor()
-
-        sql = "DELETE FROM usuario WHERE id = '{0}' ".format(id)
-        cursor.execute(sql)
-    
-        mydb.commit()
-        
-        return jsonify({'menssagem': "Registro deletado com sucesso!"})
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: registro não encontrado!"})
-
-#------------------------UPATE-----------------------------------------------------
+#--------------------------UPDATE USUARIOS(PUT)----------------------------------------------
 @api.route('/api/usuarios/<id>', methods=['PUT'])
-def atualizar_usuario(id):
+def atualiza_usuarios(id):
+    # pega o serviço
+    user_obj = User.query.filter_by(id=id).first()
+    # pega as modificações
+    body = request.get_json()  
+     
     try:
-        user = request.json
-        cursor = mydb.cursor()
+        if('email' in body):
+            user_obj.email = body["email"]
+        if('cnpj' in body):
+            user_obj.cnpj = body["cnpj"]
+        if('password' in body):
+            user_obj.password = body["password"]
+       
 
-        sql = """UPDATE  usuario SET nome='{0}', cpf='{1}', email='{2}', telefone='{3}' WHERE id = {4} """.format(user['nome'], user['cpf'], user['email'], user['telefone'], id)
-        cursor.execute(sql)
+        db.session.add(user_obj)
+        db.session.commit()
+        return gera_response(200, "Usuario", user_obj.to_json(), "atualizado com sucesso")
+    except Exception as e:
+        print("ERRO",e)
+        return gera_response(400, "Usuario", {}, "Erro ao atualizar") 
+
+#--------------------------DELETE USUARIOS-----------------------------------------------
+@api.route('/api/usuarios/<id>', methods=['DELETE'])
+def deleta_usuario(id):
+     # pega o serviço
+    user_obj = User.query.filter_by(id=id).first()
     
-        mydb.commit()
-        
-        return jsonify({'menssagem': "Registro atualizado com sucesso!"})
-    except Exception as ex:
-        return jsonify ({'menssagem': "Erro: atualização não realizada!"})
-#-----------------------------------------------------------------------------------
+    try:
+        db.session.delete(user_obj)
+        db.session.commit()
+        return gera_response(200, "Usuario", user_obj.to_json(), "Deletado com sucesso")
+    except Exception as e:
+        print("ERRO",e)
+        return gera_response(400, "Usuario", {}, "Erro ao deletar") 
 
 
+
+#--------------------------GERA RESPOSTA-------------------------------------
+def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
+    body = {}
+    body[nome_do_conteudo] = conteudo
+
+    if(mensagem):
+        body["mensagem"] = mensagem
+    return Response(json.dumps(body), status=status, mimetype="application/json")
