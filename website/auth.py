@@ -63,7 +63,7 @@ def sign_up():
         elif (password2) != password1:
             flash('Senhas não correspondentes', category='error')
         else:
-            # add user to database
+            #add user to database
             new_user = User(email=email, cnpj=cnpj, password=generate_password_hash(password1,  method='sha256'))
             db.session.add(new_user)
             db.session.commit()

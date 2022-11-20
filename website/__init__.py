@@ -30,9 +30,9 @@ def create_app():
     from .auth import auth
     from .home import ind
     from .api.usuarios import api
-    from  .api.produtos import prod
-    from  .api.negocios import estab
-    from  .api.servicos import serv
+    from .api.produtos import prod
+    from .api.negocios import estab
+    from .api.servicos import serv
     
 
     
@@ -48,7 +48,8 @@ def create_app():
     
 
     from .models import User, Comercios_item, Estabelecimentos, Servicos
-  #  create_database(app)
+
+    create_database(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -59,14 +60,14 @@ def create_app():
         return User.query.get(int(id))
     
     with app.app_context():
-        db.create_all()
+        db.create_all()        
+       
+       
+        return app
+    def create_database(app):
+        db.create_all(app=app)  
+        if not path.exists('website/' + DB_NAME):
+             db.create_all(app=app)
+             print('Created Database')
 
-        
-    return app
-'''def create_database(app):
-    db.create_all(app=app)
-    if not path.exists('website/' + DB_NAME):
-       db.create_all(app=app)
-       print('Created Database')
-
-   ''' 
+   
